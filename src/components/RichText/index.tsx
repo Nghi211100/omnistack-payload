@@ -10,21 +10,36 @@ import {
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
+import { TypographyJSXConverters } from 'payload-lexical-typography/converters'
 
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 
 import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
+  FeatureBlock as FeatureBlockProps,
+  FormBlock as FormBlockProps,
+  MapsBlock as MapsBlockType,
   MediaBlock as MediaBlockProps,
 } from '@/payload-types'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { cn } from '@/utilities/ui'
+import { FormBlock, FormBlockType } from '@/blocks/Form/Component'
+import FeatureBlock from '@/blocks/FeatureBlock/Component'
+import MapsBlock from '@/blocks/MapsBlock/Component'
 
 type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<
+      | CTABlockProps
+      | MediaBlockProps
+      | BannerBlockProps
+      | CodeBlockProps
+      | FormBlockProps
+      | FeatureBlockProps
+      | MapsBlockType
+    >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -38,6 +53,7 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
+  ...TypographyJSXConverters,
   blocks: {
     banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
     mediaBlock: ({ node }) => (
@@ -52,6 +68,16 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
+    formBlock: ({ node }) => (
+      <FormBlock
+        {...node.fields}
+        className="px-0"
+        form={node.fields.form as FormBlockType['form']}
+        introContent={node.fields.introContent as FormBlockType['introContent']}
+      />
+    ),
+    featureBlock: ({ node }) => <FeatureBlock {...node.fields} className="!p-0" />,
+    mapsBlock: ({ node }) => <MapsBlock {...node.fields} className="!p-0 [&_p]:my-0" />,
   },
 })
 
@@ -68,6 +94,7 @@ export default function RichText(props: Props) {
       converters={jsxConverters}
       className={cn(
         'payload-richtext',
+        'p-0',
         {
           container: enableGutter,
           'max-w-none': !enableGutter,

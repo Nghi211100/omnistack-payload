@@ -6,6 +6,13 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import {
+  TextFontFamilyFeature,
+  TextLineHeightFeature,
+  TextLetterSpacingFeature,
+  TextSizeFeature,
+  TextColorFeature,
+} from 'payload-lexical-typography'
 
 export const Archive: Block = {
   slug: 'archive',
@@ -15,12 +22,17 @@ export const Archive: Block = {
       name: 'introContent',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
+        features: ({ defaultFeatures }) => {
           return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            ...defaultFeatures,
+            HeadingFeature(),
+            TextSizeFeature(),
+            TextLetterSpacingFeature(),
+            TextLineHeightFeature(),
+            TextFontFamilyFeature(),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
+            TextColorFeature(),
           ]
         },
       }),
@@ -53,6 +65,18 @@ export const Archive: Block = {
         {
           label: 'Posts',
           value: 'posts',
+        },
+        {
+          label: 'Services',
+          value: 'services',
+        },
+        {
+          label: 'Reviews',
+          value: 'reviews',
+        },
+        {
+          label: 'Portfolios',
+          value: 'portfolios',
         },
       ],
     },

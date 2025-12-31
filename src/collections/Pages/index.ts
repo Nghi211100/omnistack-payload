@@ -20,6 +20,9 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { FeatureBlock } from '@/blocks/FeatureBlock/config'
+import { MediaContentBlock } from '@/blocks/MediaContentBlock/config'
+import { MapsBlock } from '@/blocks/MapsBlock/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -72,11 +75,21 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                FeatureBlock,
+                MediaContentBlock,
+                MapsBlock,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
               },
+              localized: true,
             },
           ],
           label: 'Content',

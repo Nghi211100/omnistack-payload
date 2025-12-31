@@ -3,8 +3,6 @@ import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
-
-import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -14,11 +12,38 @@ import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
+import { vi } from '@payloadcms/translations/languages/vi'
+import { en } from '@payloadcms/translations/languages/en'
+import type { Language } from '@payloadcms/translations'
+import { Services } from './collections/Services'
+import { Reviews } from './collections/Reviews'
+import { Portfolios } from './collections/Portfolios'
+import { Categories } from './collections/Categories'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  i18n: {
+    supportedLanguages: { en, vi } as unknown as Record<string, Language>,
+    fallbackLanguage: 'en',
+  },
+  localization: {
+    locales: [
+      {
+        label: 'English',
+        code: 'en',
+      },
+      {
+        label: 'Tiếng Việt',
+        code: 'vi',
+      },
+    ],
+    defaultLocale: 'en',
+    filterAvailableLocales: async ({ locales }) => {
+      return locales
+    },
+  },
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -26,7 +51,7 @@ export default buildConfig({
       beforeLogin: ['@/components/BeforeLogin'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
-      beforeDashboard: ['@/components/BeforeDashboard'],
+      // beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -62,7 +87,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Users, Services, Reviews, Portfolios, Categories],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins,
@@ -86,4 +111,5 @@ export default buildConfig({
     },
     tasks: [],
   },
+  folders: false,
 })

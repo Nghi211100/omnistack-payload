@@ -8,6 +8,13 @@ import {
 } from '@payloadcms/richtext-lexical'
 
 import { linkGroup } from '@/fields/linkGroup'
+import {
+  TextColorFeature,
+  TextFontFamilyFeature,
+  TextLineHeightFeature,
+  TextLetterSpacingFeature,
+  TextSizeFeature,
+} from 'payload-lexical-typography'
 
 export const hero: Field = {
   name: 'hero',
@@ -42,20 +49,27 @@ export const hero: Field = {
       name: 'richText',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
+        features: ({ defaultFeatures }) => {
           return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            ...defaultFeatures,
+            HeadingFeature(),
+            TextSizeFeature(),
+            TextLetterSpacingFeature(),
+            TextLineHeightFeature(),
+            TextFontFamilyFeature(),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
+            TextColorFeature(),
           ]
         },
       }),
       label: false,
+      localized: true,
     },
     linkGroup({
       overrides: {
         maxRows: 2,
+        localized: true,
       },
     }),
     {
@@ -66,6 +80,7 @@ export const hero: Field = {
       },
       relationTo: 'media',
       required: true,
+      localized: true,
     },
   ],
   label: false,

@@ -7,7 +7,7 @@ export type Props = {
   posts: CardPostData[]
 }
 
-export const CollectionArchive: React.FC<Props> = (props) => {
+export const PostsArchive: React.FC<Props> = (props) => {
   const { posts } = props
 
   return (

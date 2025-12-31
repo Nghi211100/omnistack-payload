@@ -9,6 +9,8 @@ export const Header: GlobalConfig = {
     read: () => true,
   },
   fields: [
+    { name: 'logo', type: 'upload', relationTo: 'media', localized: true },
+    { name: 'phone', type: 'text', label: 'Contact Phone' },
     {
       name: 'navItems',
       type: 'array',
@@ -24,6 +26,7 @@ export const Header: GlobalConfig = {
           RowLabel: '@/Header/RowLabel#RowLabel',
         },
       },
+      localized: true,
     },
   ],
   hooks: {

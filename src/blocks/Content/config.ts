@@ -1,6 +1,7 @@
 import type { Block, Field } from 'payload'
 
 import {
+  BlocksFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
@@ -8,6 +9,16 @@ import {
 } from '@payloadcms/richtext-lexical'
 
 import { link } from '@/fields/link'
+import {
+  TextLineHeightFeature,
+  TextLetterSpacingFeature,
+  TextSizeFeature,
+  TextFontFamilyFeature,
+  TextColorFeature,
+} from 'payload-lexical-typography'
+import { FormBlock } from '../Form/config'
+import { MapsBlock } from '../MapsBlock/config'
+import { FeatureBlock } from '../FeatureBlock/config'
 
 const columnFields: Field[] = [
   {
@@ -37,12 +48,20 @@ const columnFields: Field[] = [
     name: 'richText',
     type: 'richText',
     editor: lexicalEditor({
-      features: ({ rootFeatures }) => {
+      features: ({ defaultFeatures }) => {
         return [
-          ...rootFeatures,
-          HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+          ...defaultFeatures,
+          HeadingFeature(),
+          TextSizeFeature(),
+          TextLetterSpacingFeature(),
+          TextLineHeightFeature(),
+          TextFontFamilyFeature(),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
+          TextColorFeature(),
+          BlocksFeature({
+            blocks: [FormBlock, MapsBlock, FeatureBlock],
+          }),
         ]
       },
     }),

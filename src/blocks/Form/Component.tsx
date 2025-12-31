@@ -10,29 +10,26 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
+import { cn } from '@/utilities/ui'
 
 export type FormBlockType = {
   blockName?: string
   blockType?: 'formBlock'
-  enableIntro: boolean
-  form: FormType
+  enableIntro?: boolean | null
+  form?: number | FormType | undefined
   introContent?: DefaultTypedEditorState
 }
 
 export const FormBlock: React.FC<
   {
     id?: string
+    className?: string
   } & FormBlockType
 > = (props) => {
-  const {
-    enableIntro,
-    form: formFromProps,
-    form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
-    introContent,
-  } = props
+  const { enableIntro, form: formFromProps, introContent, className } = props
 
   const formMethods = useForm({
-    defaultValues: formFromProps.fields,
+    defaultValues: {},
   })
   const {
     control,
@@ -45,9 +42,16 @@ export const FormBlock: React.FC<
   const [hasSubmitted, setHasSubmitted] = useState<boolean>()
   const [error, setError] = useState<{ message: string; status?: string } | undefined>()
   const router = useRouter()
+  // Handle case where form is a number (ID) or null
+  const formData = typeof formFromProps === 'number' ? null : formFromProps
+  const formID = formData?.id || ''
+  const confirmationMessage = formData?.confirmationMessage || null
+  const confirmationType = formData?.confirmationType || 'message'
+  const redirect = formData?.redirect || null
+  const submitButtonLabel = formData?.submitButtonLabel || 'Submit'
 
   const onSubmit = useCallback(
-    (data: FormFieldBlock[]) => {
+    (data: Record<string, any>) => {
       let loadingTimerID: ReturnType<typeof setTimeout>
       const submitForm = async () => {
         setError(undefined)
@@ -114,7 +118,7 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container lg:max-w-[48rem]">
+    <div className={cn('container lg:max-w-[48rem]', className)}>
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
@@ -128,16 +132,16 @@ export const FormBlock: React.FC<
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4 last:mb-0">
-                {formFromProps &&
-                  formFromProps.fields &&
-                  formFromProps.fields?.map((field, index) => {
+                {formData &&
+                  formData.fields &&
+                  formData.fields?.map((field, index) => {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
                     if (Field) {
                       return (
                         <div className="mb-6 last:mb-0" key={index}>
                           <Field
-                            form={formFromProps}
+                            form={formData}
                             {...field}
                             {...formMethods}
                             control={control}

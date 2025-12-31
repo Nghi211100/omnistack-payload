@@ -3,21 +3,28 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import React from 'react'
-
-import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import { TypedLocale } from 'payload'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
+type Args = {
+  children: React.ReactNode
+  params: Promise<{
+    locale: TypedLocale
+    slug: string
+  }>
+}
+export default async function RootLayout({ children, params }: Args) {
+  const { locale = 'en' } = await params
+  const messages = await getMessages()
 
   return (
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
@@ -28,15 +35,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
-
-          <Header />
-          {children}
-          <Footer />
+          <NextIntlClientProvider messages={messages}>
+            <Header locale={locale} />
+            {children}
+            <Footer locale={locale} />
+          </NextIntlClientProvider>
         </Providers>
       </body>
     </html>

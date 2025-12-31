@@ -23,7 +23,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 217 90% 60%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -50,7 +50,7 @@
   }
 
   [data-theme='dark'] {
-    --background: 0 0% 0%;
+    --background: 210 100% 12%;
     --foreground: 210 40% 98%;
 
     --card: 0 0% 4%;
@@ -100,4 +100,24 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+.slick-arrow {
+  color: rgb(59 130 246) !important;
+  &::before {
+    color: unset !important;
+  }
+}
+
+.slick-current > div > .review {
+  border-right: 1px solid #137894;
+  padding-left: 0px;
+}
+
+.slick-slide > div > div {
+  padding-left: 50px;
+}
+
+a {
+  text-decoration: none !important;
 }
