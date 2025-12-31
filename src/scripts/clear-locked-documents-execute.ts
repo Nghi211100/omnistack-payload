@@ -1,7 +1,7 @@
 /**
  * Script to clear all locked documents from the database
  * This fixes the SQL query error caused by malformed queries in Payload's document locking feature
- * 
+ *
  * Run with: pnpm tsx src/scripts/clear-locked-documents-execute.ts
  */
 
@@ -13,7 +13,9 @@ async function clearLockedDocuments() {
 
   if (!databaseUrl) {
     console.error('❌ DATABASE_URL environment variable is not set')
-    console.error('💡 Please set DATABASE_URL in your .env file or export it before running this script')
+    console.error(
+      '💡 Please set DATABASE_URL in your .env file or export it before running this script',
+    )
     process.exit(1)
   }
 
@@ -27,13 +29,13 @@ async function clearLockedDocuments() {
 
     // Delete all locked documents
     const result = await client.query('DELETE FROM payload_locked_documents')
-    
+
     console.log(`✅ Cleared ${result.rowCount} locked document(s) from the database`)
-    
+
     // Verify the table is empty
     const countResult = await client.query('SELECT COUNT(*) FROM payload_locked_documents')
     const remainingCount = parseInt(countResult.rows[0].count, 10)
-    
+
     if (remainingCount === 0) {
       console.log('✅ Verified: No locked documents remaining')
     } else {
@@ -54,4 +56,3 @@ async function clearLockedDocuments() {
 }
 
 clearLockedDocuments()
-

@@ -40,7 +40,7 @@ export default buildConfig({
       },
     ],
     defaultLocale: 'en',
-    filterAvailableLocales: async ({ locales }) => {
+    filterAvailableLocales: async ({ req, locales }) => {
       return locales
     },
   },

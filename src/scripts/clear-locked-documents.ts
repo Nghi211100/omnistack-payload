@@ -1,9 +1,9 @@
 /**
  * Script to clear all locked documents from the database
  * This fixes the SQL query error caused by malformed queries in Payload's document locking feature
- * 
+ *
  * Run with: pnpm tsx src/scripts/clear-locked-documents.ts
- * 
+ *
  * Alternative: Run this SQL directly in your database:
  * DELETE FROM payload_locked_documents;
  */
@@ -17,7 +17,7 @@ async function clearLockedDocuments() {
 
     // Use raw database query to bypass Payload's query builder bug
     const db = payload.db
-    
+
     // For PostgreSQL, use the raw query method
     if ('query' in db && typeof db.query === 'function') {
       await db.query('DELETE FROM payload_locked_documents')
@@ -29,7 +29,7 @@ async function clearLockedDocuments() {
           collection: 'payload-locked-documents',
           where: {},
         })
-        console.log(`✅ Cleared ${result.totalDocs} locked document(s)`)
+        console.log(`✅ Cleared ${result.docs} locked document(s)`)
       } catch (deleteError) {
         console.error('❌ Payload delete failed (expected due to bug).')
         console.error('💡 Please run this SQL directly in your database:')
@@ -48,4 +48,3 @@ async function clearLockedDocuments() {
 }
 
 clearLockedDocuments()
-
