@@ -14,6 +14,9 @@ importers:
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@19.2.1)
+      '@payloadcms/admin-bar':
+        specifier: ^3.69.0
+        version: 3.69.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@payloadcms/db-postgres':
         specifier: ^3.69.0
         version: 3.69.0(@opentelemetry/api@1.9.0)(payload@3.69.0(graphql@16.12.0)(typescript@5.7.3))
@@ -1985,6 +1988,12 @@ packages:
   '@parcel/watcher@2.5.1':
     resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
+
+  '@payloadcms/admin-bar@3.69.0':
+    resolution: {integrity: sha512-LkmlfqbOch0x8rMYXKQjMTs5YSIXYNnlevqJCj9b6d7X1+wYDs1WqdrbFJA54gaDk5HnuTh324jW0MPeJloreQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.1 || ^19.1.2 || ^19.2.1
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.1 || ^19.1.2 || ^19.2.1
 
   '@payloadcms/db-postgres@3.69.0':
     resolution: {integrity: sha512-Fz/hjP0z88zrsYz1UzaqnoM3L+yHymH+yWUIJnIf7jMCtnfi/ws5XBX/0DHILvxoVsCNc5XSx3fTjcBCJoYylw==}
@@ -8707,6 +8716,11 @@ snapshots:
       '@parcel/watcher-win32-arm64': 2.5.1
       '@parcel/watcher-win32-ia32': 2.5.1
       '@parcel/watcher-win32-x64': 2.5.1
+
+  '@payloadcms/admin-bar@3.69.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+    dependencies:
+      react: 19.2.1
+      react-dom: 19.2.1(react@19.2.1)
 
   '@payloadcms/db-postgres@3.69.0(@opentelemetry/api@1.9.0)(payload@3.69.0(graphql@16.12.0)(typescript@5.7.3))':
     dependencies:
