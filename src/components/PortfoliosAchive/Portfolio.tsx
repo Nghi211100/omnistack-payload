@@ -9,7 +9,7 @@ export default function Portfolio({ portfolio }: { portfolio?: PortfolioType }) 
   return (
     <div className="dark:border-[#1e4976] overflow-hidden rounded-xl dark:border shadow-lg dark:shadow-[inset_0px_-1px_1px_#132f4c]">
       <div className="flex-shrink-0">
-        <Media className="h-48 w-full object-cover" resource={portfolio?.image} />
+        <Media imgClassName="h-48 w-full object-cover" resource={portfolio?.image} />
       </div>
       <div className="flex flex-1 flex-col justify-between bg-white dark:bg-[#001e3c] p-6">
         <div className="flex-1">

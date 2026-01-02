@@ -19,6 +19,7 @@ import { Services } from './collections/Services'
 import { Reviews } from './collections/Reviews'
 import { Portfolios } from './collections/Portfolios'
 import { Categories } from './collections/Categories'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -119,4 +120,16 @@ export default buildConfig({
     tasks: [],
   },
   folders: false,
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.FROM_ADDRESS || 'support@omnistack.com',
+    defaultFromName: process.env.FROM_NAME || 'Omnistack',
+    transportOptions: {
+      host: process.env.SMTP_HOST!,
+      port: Number(process.env.SMTP_PORT!) || 587,
+      auth: {
+        user: process.env.SMTP_USER!,
+        pass: process.env.SMTP_PASS!,
+      },
+    },
+  }),
 })

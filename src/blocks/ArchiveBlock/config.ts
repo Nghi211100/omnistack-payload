@@ -32,7 +32,9 @@ export const Archive: Block = {
             TextFontFamilyFeature(),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
-            TextColorFeature(),
+            TextColorFeature({
+              colors: ['#3b82f6', '#141414', '#4b5563'],
+            }),
           ]
         },
       }),
