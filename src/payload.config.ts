@@ -45,13 +45,20 @@ export default buildConfig({
     },
   },
   admin: {
+    meta: {
+      icons: '/icons/logo_only.webp',
+    },
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
-      beforeLogin: ['@/components/BeforeLogin'],
+      // beforeLogin: ['@/components/BeforeLogin'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
       // beforeDashboard: ['@/components/BeforeDashboard'],
+      graphics: {
+        Logo: '@/components/Admin/AdminLogo',
+        Icon: '@/components/Admin/AdminIcon',
+      },
     },
     importMap: {
       baseDir: path.resolve(dirname),

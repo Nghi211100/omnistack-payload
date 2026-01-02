@@ -30,8 +30,8 @@ export default async function RootLayout({ children, params }: Args) {
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/icons/logo_only.webp" rel="icon" sizes="32x32" />
+        <link href="/icons/logo_only.webp" rel="icon" type="image/svg+xml" />
       </head>
       <body>
         <Providers>

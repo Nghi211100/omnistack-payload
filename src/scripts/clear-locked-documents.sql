@@ -9,3 +9,4 @@ DELETE FROM payload_locked_documents;
 -- Verify the table is empty
 SELECT COUNT(*) FROM payload_locked_documents;
 
+
