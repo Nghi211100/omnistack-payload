@@ -97,7 +97,7 @@ const MediaContent: React.FC<Props> = async (props) => {
           'w-full': layout === 'full',
         },
         className,
-        'flex gap-6',
+        'flex flex-col md:flex-row gap-6',
       )}
     >
       {renderLayout()}
