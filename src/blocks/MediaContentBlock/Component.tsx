@@ -40,9 +40,17 @@ const MediaContent: React.FC<Props> = async (props) => {
     if (media || staticImage)
       return (
         <div
-          className={cn('w-1/2', 'w-1/3', 'w-1/4', 'w-2/3', 'w-3/4', 'w-2/5', 'w-3/5', 'w-full', [
-            `md:w-${layout}`,
-          ])}
+          className={cn(
+            'md:w-1/2',
+            'md:w-1/3',
+            'md:w-1/4',
+            'md:w-2/3',
+            'md:w-3/4',
+            'md:w-2/5',
+            'md:w-3/5',
+            'w-full',
+            [`md:w-${layout}`],
+          )}
         >
           <Media
             imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
