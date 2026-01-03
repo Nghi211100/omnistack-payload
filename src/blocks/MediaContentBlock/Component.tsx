@@ -41,7 +41,7 @@ const MediaContent: React.FC<Props> = async (props) => {
       return (
         <div
           className={cn('w-1/2', 'w-1/3', 'w-1/4', 'w-2/3', 'w-3/4', 'w-2/5', 'w-3/5', 'w-full', [
-            `w-${layout}`,
+            `md:w-${layout}`,
           ])}
         >
           <Media
@@ -63,7 +63,8 @@ const MediaContent: React.FC<Props> = async (props) => {
               container: !disableInnerContainer,
               'mt-6': layout === 'full',
             },
-            [`w-${reverseLayout(layout as string)}`],
+            [`md:w-${reverseLayout(layout as string)}`],
+            'w-full',
           )}
         >
           <RichText data={content} enableGutter={false} />
