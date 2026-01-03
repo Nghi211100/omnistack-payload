@@ -10,3 +10,4 @@ DELETE FROM payload_locked_documents;
 SELECT COUNT(*) FROM payload_locked_documents;
 
 
+

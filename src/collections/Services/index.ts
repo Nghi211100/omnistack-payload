@@ -1,4 +1,5 @@
 import { authenticated } from '@/access/authenticated'
+import { anyone } from '@/access/anyone'
 import { CollectionConfig } from 'payload'
 
 export const Services: CollectionConfig = {
@@ -7,7 +8,7 @@ export const Services: CollectionConfig = {
     create: authenticated,
     delete: authenticated,
     update: authenticated,
-    read: authenticated,
+    read: anyone,
   },
   admin: {
     useAsTitle: 'title',
