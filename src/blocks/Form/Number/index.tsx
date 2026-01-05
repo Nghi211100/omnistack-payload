@@ -11,8 +11,9 @@ export const Number: React.FC<
   TextField & {
     errors: Partial<FieldErrorsImpl>
     register: UseFormRegister<FieldValues>
+    placeHolder?: string
   }
-> = ({ name, defaultValue, errors, label, register, required, width }) => {
+> = ({ name, defaultValue, errors, label, register, required, width, placeHolder }) => {
   return (
     <Width width={width}>
       <Label htmlFor={name}>
@@ -29,6 +30,7 @@ export const Number: React.FC<
         id={name}
         type="number"
         {...register(name, { required })}
+        placeholder={placeHolder}
       />
       {errors[name] && <Error name={name} />}
     </Width>

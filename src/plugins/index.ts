@@ -24,6 +24,8 @@ const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
   return doc?.slug ? `${url}/${doc.slug}` : url
 }
 
+const inputTypes = ['text', 'textarea', 'email', 'number', 'select']
+
 export const plugins: Plugin[] = [
   redirectsPlugin({
     collections: ['pages', 'posts'],
@@ -74,6 +76,31 @@ export const plugins: Plugin[] = [
                   ]
                 },
               }),
+            }
+          }
+          if ('name' in field && field.name === 'fields' && field.type === 'blocks') {
+            // Extend default Text field to include a "placeholder" setting
+            const updatedDefaultBlocks = field.blocks.map((block: any) => {
+              if (inputTypes.includes(block?.slug)) {
+                return {
+                  ...block,
+                  fields: [
+                    ...block.fields,
+                    {
+                      name: 'placeHolder',
+                      label: 'PlaceHolder',
+                      type: 'text',
+                      localized: true,
+                    },
+                  ],
+                }
+              }
+              return block
+            })
+
+            return {
+              ...field,
+              blocks: [...updatedDefaultBlocks],
             }
           }
           return field

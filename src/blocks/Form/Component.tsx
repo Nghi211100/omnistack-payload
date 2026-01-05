@@ -122,7 +122,7 @@ export const FormBlock: React.FC<
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
-      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem]">
+      <div className="bg-white dark:bg-[#001e3c] p-6 lg:col-span-3 shadow-[0_10px_15px_3px_rgba(0,0,0,.05),0_4px_6px_4px_rgba(0,0,0,.1)] dark:shadow-[0_10px_15px_3px_rgba(0,0,0,.05),0_4px_6px_4px_#132f4c] rounded-xl">
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} />

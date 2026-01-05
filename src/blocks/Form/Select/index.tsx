@@ -19,8 +19,9 @@ export const Select: React.FC<
   SelectField & {
     control: Control
     errors: Partial<FieldErrorsImpl>
+    placeHolder?: string
   }
-> = ({ name, control, errors, label, options, required, width, defaultValue }) => {
+> = ({ name, control, errors, label, options, required, width, defaultValue, placeHolder }) => {
   return (
     <Width width={width}>
       <Label htmlFor={name}>
@@ -41,7 +42,7 @@ export const Select: React.FC<
           return (
             <SelectComponent onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
               <SelectTrigger className="w-full" id={name}>
-                <SelectValue placeholder={label} />
+                <SelectValue placeholder={placeHolder || label} />
               </SelectTrigger>
               <SelectContent>
                 {options.map(({ label, value }) => {
