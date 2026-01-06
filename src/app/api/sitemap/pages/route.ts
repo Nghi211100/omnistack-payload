@@ -12,7 +12,6 @@ export async function GET(request: NextRequest) {
     const hostname = request.headers.get('host') || ''
     const protocol = hostname.includes('localhost') ? 'http' : 'https'
     const baseUrl = `${protocol}://${hostname}/en`
-    const domain = hostname.split(':')[0]
 
     // Initialize Payload client
     const payload = await getPayload({ config: configPromise })
