@@ -41,7 +41,7 @@ export default buildConfig({
       },
     ],
     defaultLocale: 'en',
-    filterAvailableLocales: async ({ req, locales }) => {
+    filterAvailableLocales: async ({ locales }) => {
       return locales
     },
   },
