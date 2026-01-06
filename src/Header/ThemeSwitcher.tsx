@@ -1,7 +1,7 @@
 import { useTheme } from '@/providers/Theme'
 import { themeLocalStorageKey } from '@/providers/Theme/ThemeSelector/types'
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 export default function ThemeSwitcher() {
   const { setTheme } = useTheme()

@@ -1,6 +1,5 @@
 import { getServerSideSitemap, ISitemapField } from 'next-sitemap'
 import { headers } from 'next/headers'
-import { cookies } from 'next/headers'
 export async function GET() {
   try {
     const headersList = await headers()
