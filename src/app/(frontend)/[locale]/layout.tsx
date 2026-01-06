@@ -30,7 +30,6 @@ export default async function RootLayout({ children, params }: Args) {
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
-        <link href="/icons/logo_only.webp" rel="icon" sizes="32x32" />
         <link href="/icons/logo_only.webp" rel="icon" type="image/svg+xml" />
       </head>
       <body>
@@ -51,6 +50,6 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: 'Omnistack',
   },
 }
