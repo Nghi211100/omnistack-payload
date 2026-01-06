@@ -3,7 +3,18 @@ import { NextResponse } from 'next/server'
 
 export async function GET() {
   const url = await getServerSideURL()
-  const defaultRobotContent = `User-agent: *\nDisallow: /admin/\nSitemap: ${url}/sitemap.xml\n`
+  const defaultRobotContent = `# *
+  User-agent: *
+  Disallow: /admin/
+  
+  # Host
+  Host: ${url}
+  
+  # Sitemaps
+  Sitemap: ${url}/sitemap.xml
+  Sitemap: ${url}/pages-sitemap.xml
+  Sitemap: ${url}/posts-sitemap.xml
+  `
 
   return new NextResponse(defaultRobotContent, {
     headers: {
