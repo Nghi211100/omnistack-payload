@@ -1,8 +1,9 @@
+import { getServerSideURL } from '@/utilities/getURL'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
-  // default restrictive robots.txt
-  const defaultRobotContent = `User-agent: *\nDisallow: /\n`
+  const url = await getServerSideURL()
+  const defaultRobotContent = `User-agent: *\nAllow: /\nSitemap: ${url}/sitemap.xml\n`
 
   return new NextResponse(defaultRobotContent, {
     headers: {
