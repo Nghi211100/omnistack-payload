@@ -33,6 +33,22 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap.xml',
+        destination: '/api/sitemap',
+      },
+      {
+        source: '/pages-sitemap.xml',
+        destination: '/api/sitemap/pages',
+      },
+      {
+        source: '/posts-sitemap.xml',
+        destination: '/api/sitemap/posts',
+      },
+    ]
+  },
 }
 
 export default withNextIntl(withPayload(nextConfig, { devBundleServerPackages: false }))
