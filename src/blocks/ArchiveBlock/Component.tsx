@@ -8,7 +8,7 @@ import type {
 } from '@/payload-types'
 
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, TypedLocale } from 'payload'
 import React from 'react'
 import RichText from '@/components/RichText'
 
@@ -16,6 +16,7 @@ import { PostsArchive } from '@/components/PostsArchive'
 import ServicesArchive from '@/components/ServicceArchive'
 import ReviewsArchive from '@/components/ReviewArchive'
 import PortfolioArchive from '@/components/PortfoliosAchive'
+import { cookies } from 'next/headers'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -31,6 +32,9 @@ export const ArchiveBlock: React.FC<
     selectedDocs,
     relationTo,
   } = props
+
+  const cookieStore = await cookies()
+  const locale = (cookieStore.get('NEXT_LOCALE')?.value || 'en') as TypedLocale
 
   const limit = limitFromProps || 3
 
@@ -50,6 +54,7 @@ export const ArchiveBlock: React.FC<
     if (relationTo === 'posts') {
       const fetchedPosts = await payload.find({
         collection: 'posts',
+        locale: locale,
         depth: 1,
         limit,
         ...(flattenedCategories && flattenedCategories.length > 0
@@ -67,6 +72,7 @@ export const ArchiveBlock: React.FC<
     if (relationTo === 'services') {
       const fetchedServices = await payload.find({
         collection: 'services',
+        locale: locale,
         depth: 1,
         limit,
         ...(flattenedCategories && flattenedCategories.length > 0
@@ -85,6 +91,7 @@ export const ArchiveBlock: React.FC<
       const fetchedReviews = await payload.find({
         collection: 'reviews',
         depth: 1,
+        locale: locale,
         limit,
         ...(flattenedCategories && flattenedCategories.length > 0
           ? {
@@ -102,6 +109,7 @@ export const ArchiveBlock: React.FC<
       const fetchedPortfolio = await payload.find({
         collection: 'portfolios',
         depth: 1,
+        locale: locale,
         limit,
         ...(flattenedCategories && flattenedCategories.length > 0
           ? {
@@ -118,6 +126,7 @@ export const ArchiveBlock: React.FC<
       const fetchedCategories = await payload.find({
         collection: 'categories',
         depth: 1,
+        locale: locale,
         limit,
         ...(flattenedCategories && flattenedCategories.length > 0
           ? {

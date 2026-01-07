@@ -1,26 +1,28 @@
+import { useRouter } from '@/i18n/routing'
 import { Category } from '@/payload-types'
 import { ChevronDownIcon, ChevronUpIcon, FunnelIcon } from '@heroicons/react/24/outline'
 import { useTranslations } from 'next-intl'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
 export default function Combobox({ category }: { category: Category[] }) {
   const t = useTranslations()
   const [open, setOpen] = useState(false)
 
-  const searchParams = useSearchParams()
   const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   const cateQuery = searchParams.get('cate')
 
-  const handleChange = (ctname: string) => {
+  const handleChange = (cateName: string) => {
     const params = new URLSearchParams(searchParams.toString())
 
     if (cateQuery) {
       const list = cateQuery.split(',')
 
-      if (list.includes(ctname)) {
+      if (list.includes(cateName)) {
         // remove
-        const next = list.filter((c) => c !== ctname)
+        const next = list.filter((c) => c !== cateName)
         if (next.length === 0) {
           params.delete('cate')
         } else {
@@ -28,15 +30,14 @@ export default function Combobox({ category }: { category: Category[] }) {
         }
       } else {
         // add
-        params.set('cate', [...list, ctname].join(','))
+        params.set('cate', [...list, cateName].join(','))
       }
     } else {
-      params.set('cate', ctname)
+      params.set('cate', cateName)
     }
+    const query = Object.fromEntries(params.entries())
 
-    router.replace(`/portfolio?${params.toString()}`, {
-      scroll: false,
-    })
+    router.replace({ pathname, query }, { scroll: false })
   }
 
   const Options = (mobile?: boolean) => {
@@ -59,11 +60,14 @@ export default function Combobox({ category }: { category: Category[] }) {
               id={cate.slug}
               name={cate.slug}
               type="checkbox"
-              className="h-4 w-4 rounded-md focus:[--tw-ring-offset-width:0px] focus:ring-0 border border-gray-300 outline-none bg-transparent dark:border-[#183b61] mt-[5px]"
+              className="h-4 w-4 hover:cursor-pointer rounded-md focus:[--tw-ring-offset-width:0px] focus:ring-0 border border-gray-300 outline-none bg-transparent dark:border-[#183b61] mt-[5px]"
               onChange={() => handleChange(cate.slug)}
-              checked={cateQuery?.includes(cate.slug)}
+              checked={cateQuery?.includes(cate.slug) || false}
             />
-            <label htmlFor={cate.slug} className="font-medium text-black dark:text-white">
+            <label
+              htmlFor={cate.slug}
+              className="font-medium text-black dark:text-white hover:cursor-pointer"
+            >
               {cate.title}
             </label>
           </div>

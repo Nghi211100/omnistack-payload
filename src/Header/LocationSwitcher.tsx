@@ -1,5 +1,5 @@
 'use client'
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import React, { useTransition } from 'react'
 import localization from '@/i18n/localization'
 import { TypedLocale } from 'payload'
@@ -11,11 +11,12 @@ export const LocaleSwitcher = () => {
   const [, startTransition] = useTransition()
   const pathname = usePathname()
   const params = useParams()
+  const searchParams = useSearchParams()
+  const query = Object.fromEntries(searchParams.entries())
 
   function onSelectChange(value: TypedLocale) {
     startTransition(() => {
-      // @ts-expect-error -- TypeScript will validate that only known `params`
-      router.replace({ pathname, params }, { locale: value })
+      router.replace({ pathname, query }, { locale: value, scroll: false })
     })
   }
 
