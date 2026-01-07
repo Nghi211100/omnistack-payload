@@ -111,6 +111,7 @@ export const ArchiveBlock: React.FC<
         depth: 1,
         locale: locale,
         limit,
+        sort: ['name', '-updatedAt'],
         ...(flattenedCategories && flattenedCategories.length > 0
           ? {
               where: {
@@ -128,6 +129,7 @@ export const ArchiveBlock: React.FC<
         depth: 1,
         locale: locale,
         limit,
+        sort: ['slug', '-updatedAt'],
         ...(flattenedCategories && flattenedCategories.length > 0
           ? {
               where: {

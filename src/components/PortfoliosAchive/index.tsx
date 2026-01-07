@@ -18,7 +18,8 @@ const PortfolioArchive: React.FC<Props> = (props) => {
   const searchParams = useSearchParams()
   const cate = searchParams.get('cate')
 
-  const { portfolios } = props
+  const { portfolios, categories } = props
+
   const [portfoliosFilter, setPortfoliosFilter] = useState<Portfolio[]>()
   const [loadMore, setLoadMore] = useState(1)
   const loadProduct = () => {
@@ -30,17 +31,7 @@ const PortfolioArchive: React.FC<Props> = (props) => {
                 typeof p.categories === 'object' ? p.categories?.slug || 'all' : 'all',
               ) === true,
           )
-        : portfolios.sort((a, b) => {
-            const nameA = (a.categories as Category)?.title.toUpperCase()
-            const nameB = (b.categories as Category)?.title.toUpperCase()
-            if (nameA < nameB) {
-              return -1
-            }
-            if (nameA > nameB) {
-              return 1
-            }
-            return 0
-          }),
+        : portfolios,
     )
   }
 
@@ -70,7 +61,7 @@ const PortfolioArchive: React.FC<Props> = (props) => {
   return (
     <div className="md:grid md:grid-cols-12 mx-auto lg:max-w-[1200px]">
       <div className="col-span-2">
-        <Combobox category={props.categories} />
+        <Combobox category={categories} />
       </div>
       <div className="bg-white dark:bg-[#001e3c] col-span-10">
         <Portfolios portfolios={portfoliosFilter?.slice(0, 9 * loadMore)} />
