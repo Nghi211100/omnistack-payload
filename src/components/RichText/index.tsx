@@ -21,6 +21,8 @@ import type {
   FormBlock as FormBlockProps,
   MapsBlock as MapsBlockType,
   MediaBlock as MediaBlockProps,
+  Page,
+  Post,
 } from '@/payload-types'
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
@@ -28,6 +30,7 @@ import { cn } from '@/utilities/ui'
 import { FormBlock, FormBlockType } from '@/blocks/Form/Component'
 import FeatureBlock from '@/blocks/FeatureBlock/Component'
 import MapsBlock from '@/blocks/MapsBlock/Component'
+import { CMSLink } from '../Link'
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -78,6 +81,38 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     ),
     featureBlock: ({ node }) => <FeatureBlock {...node.fields} className="!p-0" />,
     mapsBlock: ({ node }) => <MapsBlock {...node.fields} className="!p-0 [&_p]:my-0" />,
+  },
+  link: ({ node }) => {
+    const { doc, url, newTab } = node.fields
+
+    // Extract text from children
+    const textContent =
+      node.children[0] && 'text' in node.children[0]
+        ? (node.children[0] as { text?: string }).text
+        : undefined
+
+    // Handle internal document reference
+    if (doc && typeof doc.value === 'object' && doc.value !== null) {
+      return (
+        <CMSLink
+          type="reference"
+          reference={{
+            relationTo: doc.relationTo as 'pages' | 'posts',
+            value: doc.value as unknown as Page | Post,
+          }}
+          newTab={newTab}
+        >
+          {textContent}
+        </CMSLink>
+      )
+    }
+
+    // Handle custom URL
+    return (
+      <CMSLink type="custom" url={url} newTab={newTab}>
+        {textContent}
+      </CMSLink>
+    )
   },
 })
 
