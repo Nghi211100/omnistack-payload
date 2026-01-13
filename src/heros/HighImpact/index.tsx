@@ -43,7 +43,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ link, media, richText }
         </svg>
         <div className="mx-auto max-w-7xl px-6 pb-20 sm:py-24 lg:flex lg:px-8 text-left">
           <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 flex flex-col justify-center">
-            <RichText className="mb-6" data={richText} enableGutter={false} />
+            {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
             <CMSLink {...link} />
           </div>
           <div className="mx-auto mt-10 flex max-w-2xl sm:mt-16 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32">
