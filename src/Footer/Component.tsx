@@ -18,7 +18,7 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
-      <div className="mx-auto max-w-[1200px] px-5 sm:px-8 pb-10 pt-10">
+      <div className="container pb-10 pt-10">
         <div className="lg:grid lg:grid-cols-2 lg:gap-32">
           <div>
             <Link href={'/'}>

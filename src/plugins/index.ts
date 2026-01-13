@@ -13,6 +13,7 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { formSubmissionTemplate } from '@/emails-template/submitEmail'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Omnistack Website` : 'Omnistack Website'
@@ -105,6 +106,34 @@ export const plugins: Plugin[] = [
           }
           return field
         })
+      },
+    },
+    formSubmissionOverrides: {
+      hooks: {
+        afterChange: [
+          async ({ doc, req }) => {
+            try {
+              const fields = doc.submissionData || []
+
+              const fieldMap = fields.reduce((acc: any, item: any) => {
+                acc[item.field] = item.value
+                return acc
+              }, {})
+
+              const html = formSubmissionTemplate(fieldMap, doc.form.title)
+
+              await req.payload.sendEmail({
+                to: process.env.TO_ADDRESS,
+                subject: `News from Omnistack`,
+                html,
+              })
+
+              console.log('✅ Email sent via Postmark')
+            } catch (err) {
+              console.error('❌ Email failed:', err)
+            }
+          },
+        ],
       },
     },
   }),

@@ -15,6 +15,7 @@ import {
   TextLetterSpacingFeature,
   TextSizeFeature,
 } from 'payload-lexical-typography'
+import { link } from '@/fields/link'
 
 export const hero: Field = {
   name: 'hero',
@@ -68,10 +69,10 @@ export const hero: Field = {
       label: false,
       localized: true,
     },
-    linkGroup({
+    link({
       overrides: {
-        maxRows: 2,
         localized: true,
+        required: false,
       },
     }),
     {

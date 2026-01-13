@@ -4,6 +4,7 @@ import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
 import { Link } from '@/i18n/routing'
+import { Position } from '@/fields/link'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -18,6 +19,7 @@ type CMSLinkType = {
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
   url?: string | null
+  position?: Position | null
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -31,6 +33,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     reference,
     size: sizeFromProps,
     url,
+    position,
   } = props
 
   const href =
@@ -56,11 +59,19 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   }
 
   return (
-    <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
-      </Link>
-    </Button>
+    <div
+      className={cn(
+        'w-full text-left',
+        { 'text-center': position === 'center' },
+        { 'text-right': position === 'right' },
+      )}
+    >
+      <Button asChild className={className} size={size} variant={appearance}>
+        <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+          {label && label}
+          {children && children}
+        </Link>
+      </Button>
+    </div>
   )
 }

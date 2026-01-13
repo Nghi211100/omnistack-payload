@@ -22,10 +22,12 @@ export async function GET(request: NextRequest) {
 `
 
     sitemapXml += `  <url>
-    <loc>${origin}/post</loc>
-    <xhtml:link rel="alternate" hreflang="x-default" href="${origin}/en/post" />
-    <xhtml:link rel="alternate" hreflang="en" href="${origin}/en/post" />
-    <xhtml:link rel="alternate" hreflang="vi" href="${origin}/vi/post" />
+    <loc>${origin}/en/post</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>${origin}/vi/post</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -74,9 +76,17 @@ export async function GET(request: NextRequest) {
     postsByLocale.en.forEach((updatedAt, slug) => {
       sitemapXml += `  <url>
     <loc>${origin}/en/post/${slug}</loc>
-    <xhtml:link rel="alternate" hreflang="x-default" href="${origin}/en/post/${slug}" />
-    <xhtml:link rel="alternate" hreflang="en" href="${origin}/en/post/${slug}" />
-    <xhtml:link rel="alternate" hreflang="vi" href="${origin}/vi/post/${slug}" />
+    <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`
+    })
+
+    // VI as canonical source
+    postsByLocale.vi.forEach((updatedAt, slug) => {
+      sitemapXml += `  <url>
+    <loc>${origin}/vi/post/${slug}</loc>
     <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

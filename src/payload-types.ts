@@ -174,30 +174,29 @@ export interface Page {
       };
       [k: string]: unknown;
     } | null;
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: number | Post;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null);
+      url?: string | null;
+      label?: string | null;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline') | null;
+      /**
+       * Choose how the link position should be.
+       */
+      position?: ('center' | 'right') | null;
+    };
     media?: (number | null) | Media;
   };
   layout: (
@@ -459,6 +458,10 @@ export interface CallToActionBlock {
            * Choose how the link should be rendered.
            */
           appearance?: ('default' | 'outline') | null;
+          /**
+           * Choose how the link position should be.
+           */
+          position?: ('center' | 'right') | null;
         };
         id?: string | null;
       }[]
@@ -509,6 +512,10 @@ export interface ContentBlock {
            * Choose how the link should be rendered.
            */
           appearance?: ('default' | 'outline') | null;
+          /**
+           * Choose how the link position should be.
+           */
+          position?: ('center' | 'right') | null;
         };
         id?: string | null;
       }[]
@@ -838,6 +845,10 @@ export interface MediaContentBlock {
         } | null);
     url?: string | null;
     label: string;
+    /**
+     * Choose how the link position should be.
+     */
+    position?: ('center' | 'right') | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -1226,20 +1237,16 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         type?: T;
         richText?: T;
-        links?:
+        link?:
           | T
           | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-              id?: T;
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+              position?: T;
             };
         media?: T;
       };
@@ -1287,6 +1294,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              position?: T;
             };
         id?: T;
       };
@@ -1313,6 +1321,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              position?: T;
             };
         id?: T;
       };
@@ -1387,6 +1396,7 @@ export interface MediaContentBlockSelect<T extends boolean = true> {
         reference?: T;
         url?: T;
         label?: T;
+        position?: T;
       };
   id?: T;
   blockName?: T;
@@ -1898,6 +1908,10 @@ export interface Header {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Choose how the link position should be.
+           */
+          position?: ('center' | 'right') | null;
         };
         id?: string | null;
       }[]
@@ -1943,6 +1957,10 @@ export interface Footer {
                 value: number | Post;
               } | null);
           url?: string | null;
+          /**
+           * Choose how the link position should be.
+           */
+          position?: ('center' | 'right') | null;
         };
         navItems?:
           | {
@@ -1960,6 +1978,10 @@ export interface Footer {
                     } | null);
                 url?: string | null;
                 label: string;
+                /**
+                 * Choose how the link position should be.
+                 */
+                position?: ('center' | 'right') | null;
               };
               id?: string | null;
             }[]
@@ -1989,6 +2011,7 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              position?: T;
             };
         id?: T;
       };
@@ -2014,6 +2037,7 @@ export interface FooterSelect<T extends boolean = true> {
               newTab?: T;
               reference?: T;
               url?: T;
+              position?: T;
             };
         navItems?:
           | T
@@ -2026,6 +2050,7 @@ export interface FooterSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     label?: T;
+                    position?: T;
                   };
               id?: T;
             };
