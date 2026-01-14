@@ -8,8 +8,8 @@ type Props = MapsBlockType & {
 
 const MapsBlock = (props: Props): React.JSX.Element => {
   return (
-    <div className="py-16">
-      <div className={cn('container mx-auto px-6', props.className)}>
+    <div className={cn('py-16', props.className)}>
+      <div className="container mx-auto px-6">
         <p className="text-4xl font-bold dark:text-white pb-4">{props?.title}</p>
         <div
           className={cn(
