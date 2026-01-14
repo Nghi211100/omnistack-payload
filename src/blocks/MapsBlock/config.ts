@@ -1,13 +1,12 @@
+import { settingField } from '@/fields/setting'
 import { Block } from 'payload'
 
 export const MapsBlock: Block = {
   slug: 'mapsBlock',
   interfaceName: 'MapsBlock',
   fields: [
-    {
-      type: 'collapsible',
-      label: 'Settings',
-      fields: [
+    settingField({
+      overrides: [
         {
           name: 'width',
           type: 'number',
@@ -25,7 +24,7 @@ export const MapsBlock: Block = {
           },
         },
       ],
-    },
+    }),
     {
       name: 'title',
       type: 'text',

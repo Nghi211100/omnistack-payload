@@ -7,10 +7,22 @@ import {
   lexicalEditor,
   UnderlineFeature,
   type LinkFields,
+  InlineToolbarFeature,
+  FixedToolbarFeature,
+  HeadingFeature,
+  HorizontalRuleFeature,
 } from '@payloadcms/richtext-lexical'
+import {
+  TextColorFeature,
+  TextSizeFeature,
+  TextFontFamilyFeature,
+  TextLetterSpacingFeature,
+  TextLineHeightFeature,
+} from 'payload-lexical-typography'
 
 export const defaultLexical = lexicalEditor({
-  features: [
+  features: ({ defaultFeatures }) => [
+    ...defaultFeatures,
     ParagraphFeature(),
     UnderlineFeature(),
     BoldFeature(),
@@ -42,6 +54,16 @@ export const defaultLexical = lexicalEditor({
           },
         ]
       },
+    }),
+    HeadingFeature(),
+    TextSizeFeature(),
+    TextLetterSpacingFeature(),
+    TextLineHeightFeature(),
+    TextFontFamilyFeature(),
+    FixedToolbarFeature(),
+    InlineToolbarFeature(),
+    TextColorFeature({
+      colors: ['#3b82f6', '#141414', '#4b5563'],
     }),
   ],
 })

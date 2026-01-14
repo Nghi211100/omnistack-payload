@@ -1,19 +1,6 @@
 import { link } from '@/fields/link'
-import {
-  InlineToolbarFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
-  lexicalEditor,
-  BlocksFeature,
-} from '@payloadcms/richtext-lexical'
+import { lexicalEditor, BlocksFeature } from '@payloadcms/richtext-lexical'
 import { Block } from 'payload'
-import {
-  TextColorFeature,
-  TextFontFamilyFeature,
-  TextLineHeightFeature,
-  TextLetterSpacingFeature,
-  TextSizeFeature,
-} from 'payload-lexical-typography'
 import { FeatureBlock } from '../FeatureBlock/config'
 
 export const MediaContentBlock: Block = {
@@ -67,21 +54,8 @@ export const MediaContentBlock: Block = {
       name: 'content',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ defaultFeatures }) => {
-          return [
-            ...defaultFeatures,
-            HeadingFeature(),
-            TextSizeFeature(),
-            TextLetterSpacingFeature(),
-            TextLineHeightFeature(),
-            TextFontFamilyFeature(),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-            TextColorFeature({
-              colors: ['#3b82f6', '#141414', '#4b5563'],
-            }),
-            BlocksFeature({ blocks: [FeatureBlock] }),
-          ]
+        features: ({ rootFeatures }) => {
+          return [...rootFeatures, BlocksFeature({ blocks: [FeatureBlock] })]
         },
       }),
       localized: true,

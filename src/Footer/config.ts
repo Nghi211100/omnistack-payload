@@ -28,19 +28,9 @@ export const Footer: GlobalConfig = {
       name: 'additionalInformation',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ defaultFeatures }) => {
+        features: ({ rootFeatures }) => {
           return [
-            ...defaultFeatures,
-            HeadingFeature(),
-            TextSizeFeature(),
-            TextLetterSpacingFeature(),
-            TextLineHeightFeature(),
-            TextFontFamilyFeature(),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-            TextColorFeature({
-              colors: ['#3b82f6', '#141414', '#4b5563'],
-            }),
+            ...rootFeatures,
             BlocksFeature({
               blocks: [FormBlock],
             }),

@@ -859,14 +859,48 @@ export interface MediaContentBlock {
  * via the `definition` "MapsBlock".
  */
 export interface MapsBlock {
-  /**
-   * Map width in pixels (px)
-   */
-  width?: number | null;
-  /**
-   * Map height in pixels (px)
-   */
-  height?: number | null;
+  settings?: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "64px". Leave blank to use the default.
+     */
+    padding?: string | null;
+    /**
+     * Map width in pixels (px)
+     */
+    width?: number | null;
+    /**
+     * Map height in pixels (px)
+     */
+    height?: number | null;
+  };
   title?: string | null;
   specificAddress?: string | null;
   /**
@@ -1406,8 +1440,20 @@ export interface MediaContentBlockSelect<T extends boolean = true> {
  * via the `definition` "MapsBlock_select".
  */
 export interface MapsBlockSelect<T extends boolean = true> {
-  width?: T;
-  height?: T;
+  settings?:
+    | T
+    | {
+        bgType?: T;
+        bgColor?: T;
+        bgSize?: T;
+        bgSizeCustom?: T;
+        bgPosition?: T;
+        bgAttachment?: T;
+        bgRepeat?: T;
+        padding?: T;
+        width?: T;
+        height?: T;
+      };
   title?: T;
   specificAddress?: T;
   latitude?: T;

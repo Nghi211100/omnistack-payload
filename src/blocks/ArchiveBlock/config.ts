@@ -1,19 +1,5 @@
 import type { Block } from 'payload'
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-import {
-  TextFontFamilyFeature,
-  TextLineHeightFeature,
-  TextLetterSpacingFeature,
-  TextSizeFeature,
-  TextColorFeature,
-} from 'payload-lexical-typography'
-
 export const Archive: Block = {
   slug: 'archive',
   interfaceName: 'ArchiveBlock',
@@ -21,23 +7,6 @@ export const Archive: Block = {
     {
       name: 'introContent',
       type: 'richText',
-      editor: lexicalEditor({
-        features: ({ defaultFeatures }) => {
-          return [
-            ...defaultFeatures,
-            HeadingFeature(),
-            TextSizeFeature(),
-            TextLetterSpacingFeature(),
-            TextLineHeightFeature(),
-            TextFontFamilyFeature(),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-            TextColorFeature({
-              colors: ['#3b82f6', '#141414', '#4b5563'],
-            }),
-          ]
-        },
-      }),
       label: 'Intro Content',
     },
     {

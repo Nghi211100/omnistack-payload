@@ -1,6 +1,7 @@
 import { authenticated } from '@/access/authenticated'
 import { anyone } from '@/access/anyone'
 import { CollectionConfig } from 'payload'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const Portfolios: CollectionConfig = {
   slug: 'portfolios',
