@@ -10,7 +10,8 @@ const MapsBlock = (props: Props): React.JSX.Element => {
   return (
     <div className={cn('py-16', props.className)}>
       <div className="container mx-auto px-6">
-        <p className="text-4xl font-bold dark:text-white pb-4">{props?.title}</p>
+        {props?.title && <p className="text-4xl font-bold dark:text-white pb-4">{props?.title}</p>}
+
         <div
           className={cn(
             'bg-white mx-auto w-full h-80 md:h-[700px] p-6 shadow-lg dark:bg-[#005eff]/20 dark:shadow-[inset_0px_-1px_1px_#132f4c] rounded-xl border border-neutral-100',
