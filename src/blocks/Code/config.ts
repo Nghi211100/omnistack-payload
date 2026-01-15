@@ -1,9 +1,11 @@
+import { settingField } from '@/fields/setting'
 import type { Block } from 'payload'
 
 export const Code: Block = {
   slug: 'code',
   interfaceName: 'CodeBlock',
   fields: [
+    settingField({}),
     {
       name: 'language',
       type: 'select',

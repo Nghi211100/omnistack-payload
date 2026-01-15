@@ -423,6 +423,44 @@ export interface User {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
+  settings?: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color' | 'transparent') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+     */
+    padding?: string | null;
+  };
   richText?: {
     root: {
       type: string;
@@ -475,6 +513,44 @@ export interface CallToActionBlock {
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
+  settings?: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color' | 'transparent') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+     */
+    padding?: string | null;
+  };
   columns?:
     | {
         size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
@@ -529,6 +605,44 @@ export interface ContentBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
+  settings?: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color' | 'transparent') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+     */
+    padding?: string | null;
+  };
   media: number | Media;
   id?: string | null;
   blockName?: string | null;
@@ -539,6 +653,44 @@ export interface MediaBlock {
  * via the `definition` "ArchiveBlock".
  */
 export interface ArchiveBlock {
+  settings?: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color' | 'transparent') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+     */
+    padding?: string | null;
+  };
   introContent?: {
     root: {
       type: string;
@@ -573,6 +725,44 @@ export interface ArchiveBlock {
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
+  settings?: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color' | 'transparent') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+     */
+    padding?: string | null;
+  };
   form: number | Form;
   enableIntro?: boolean | null;
   introContent?: {
@@ -778,7 +968,45 @@ export interface Form {
  * via the `definition` "FeatureBlock".
  */
 export interface FeatureBlock {
-  layout?: ('3-columns' | '4-columns' | '5-columns') | null;
+  settings?: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color' | 'transparent') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+     */
+    padding?: string | null;
+    layout?: ('3-columns' | '4-columns' | '5-columns') | null;
+  };
   items?:
     | {
         media?: (number | null) | Media;
@@ -809,11 +1037,52 @@ export interface FeatureBlock {
  * via the `definition` "MediaContentBlock".
  */
 export interface MediaContentBlock {
-  alignment?: ('contentMedia' | 'mediaContent') | null;
-  /**
-   * Select the proportional layout of Content and Media within this block.
-   */
-  layout?: ('1/2' | '1/4' | '2/5' | '1/3' | '3/5' | '2/3' | '3/4' | 'full') | null;
+  settings?: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color' | 'transparent') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+     */
+    padding?: string | null;
+    /**
+     * Choose the order of content and media within this block. "Media + Content" displays the media first, followed by the content; "Content + Media" reverses the order.
+     */
+    alignment?: ('contentMedia' | 'mediaContent') | null;
+    /**
+     * Select the proportional layout of Content and Media within this block.
+     */
+    layout?: ('1/2' | '1/4' | '2/5' | '1/3' | '3/5' | '2/3' | '3/4' | 'full') | null;
+  };
   media?: (number | null) | Media;
   content?: {
     root: {
@@ -863,11 +1132,19 @@ export interface MapsBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color') | null;
+    bgType?: ('image' | 'color' | 'transparent') | null;
     /**
      * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
     bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
     /**
      * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
      */
@@ -885,11 +1162,7 @@ export interface MapsBlock {
      */
     bgAttachment?: ('scroll' | 'fixed') | null;
     /**
-     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
-     */
-    bgRepeat?: boolean | null;
-    /**
-     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "64px". Leave blank to use the default.
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
      */
     padding?: string | null;
     /**
@@ -1315,6 +1588,19 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
+  settings?:
+    | T
+    | {
+        bgType?: T;
+        bgColor?: T;
+        bgImage?: T;
+        bgRepeat?: T;
+        bgSize?: T;
+        bgSizeCustom?: T;
+        bgPosition?: T;
+        bgAttachment?: T;
+        padding?: T;
+      };
   richText?: T;
   links?:
     | T
@@ -1340,6 +1626,19 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
+  settings?:
+    | T
+    | {
+        bgType?: T;
+        bgColor?: T;
+        bgImage?: T;
+        bgRepeat?: T;
+        bgSize?: T;
+        bgSizeCustom?: T;
+        bgPosition?: T;
+        bgAttachment?: T;
+        padding?: T;
+      };
   columns?:
     | T
     | {
@@ -1367,6 +1666,19 @@ export interface ContentBlockSelect<T extends boolean = true> {
  * via the `definition` "MediaBlock_select".
  */
 export interface MediaBlockSelect<T extends boolean = true> {
+  settings?:
+    | T
+    | {
+        bgType?: T;
+        bgColor?: T;
+        bgImage?: T;
+        bgRepeat?: T;
+        bgSize?: T;
+        bgSizeCustom?: T;
+        bgPosition?: T;
+        bgAttachment?: T;
+        padding?: T;
+      };
   media?: T;
   id?: T;
   blockName?: T;
@@ -1376,6 +1688,19 @@ export interface MediaBlockSelect<T extends boolean = true> {
  * via the `definition` "ArchiveBlock_select".
  */
 export interface ArchiveBlockSelect<T extends boolean = true> {
+  settings?:
+    | T
+    | {
+        bgType?: T;
+        bgColor?: T;
+        bgImage?: T;
+        bgRepeat?: T;
+        bgSize?: T;
+        bgSizeCustom?: T;
+        bgPosition?: T;
+        bgAttachment?: T;
+        padding?: T;
+      };
   introContent?: T;
   populateBy?: T;
   relationTo?: T;
@@ -1390,6 +1715,19 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  * via the `definition` "FormBlock_select".
  */
 export interface FormBlockSelect<T extends boolean = true> {
+  settings?:
+    | T
+    | {
+        bgType?: T;
+        bgColor?: T;
+        bgImage?: T;
+        bgRepeat?: T;
+        bgSize?: T;
+        bgSizeCustom?: T;
+        bgPosition?: T;
+        bgAttachment?: T;
+        padding?: T;
+      };
   form?: T;
   enableIntro?: T;
   introContent?: T;
@@ -1401,7 +1739,20 @@ export interface FormBlockSelect<T extends boolean = true> {
  * via the `definition` "FeatureBlock_select".
  */
 export interface FeatureBlockSelect<T extends boolean = true> {
-  layout?: T;
+  settings?:
+    | T
+    | {
+        bgType?: T;
+        bgColor?: T;
+        bgImage?: T;
+        bgRepeat?: T;
+        bgSize?: T;
+        bgSizeCustom?: T;
+        bgPosition?: T;
+        bgAttachment?: T;
+        padding?: T;
+        layout?: T;
+      };
   items?:
     | T
     | {
@@ -1417,8 +1768,21 @@ export interface FeatureBlockSelect<T extends boolean = true> {
  * via the `definition` "MediaContentBlock_select".
  */
 export interface MediaContentBlockSelect<T extends boolean = true> {
-  alignment?: T;
-  layout?: T;
+  settings?:
+    | T
+    | {
+        bgType?: T;
+        bgColor?: T;
+        bgImage?: T;
+        bgRepeat?: T;
+        bgSize?: T;
+        bgSizeCustom?: T;
+        bgPosition?: T;
+        bgAttachment?: T;
+        padding?: T;
+        alignment?: T;
+        layout?: T;
+      };
   media?: T;
   content?: T;
   enableButtonDirect?: T;
@@ -1445,11 +1809,12 @@ export interface MapsBlockSelect<T extends boolean = true> {
     | {
         bgType?: T;
         bgColor?: T;
+        bgImage?: T;
+        bgRepeat?: T;
         bgSize?: T;
         bgSizeCustom?: T;
         bgPosition?: T;
         bgAttachment?: T;
-        bgRepeat?: T;
         padding?: T;
         width?: T;
         height?: T;
@@ -2134,7 +2499,45 @@ export interface TaskSchedulePublish {
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
+  settings: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color' | 'transparent') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+     */
+    padding?: string | null;
+    style: 'info' | 'warning' | 'error' | 'success';
+  };
   content: {
     root: {
       type: string;
@@ -2159,6 +2562,44 @@ export interface BannerBlock {
  * via the `definition` "CodeBlock".
  */
 export interface CodeBlock {
+  settings?: {
+    /**
+     * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+     */
+    bgType?: ('image' | 'color' | 'transparent') | null;
+    /**
+     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgColor?: string | null;
+    /**
+     * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+     */
+    bgImage?: (number | null) | Media;
+    /**
+     * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+     */
+    bgRepeat?: boolean | null;
+    /**
+     * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+     */
+    bgSize?: ('contain' | 'cover' | 'custom') | null;
+    /**
+     * Enter a value in pixels or percent (e.g., 70px, 50%)
+     */
+    bgSizeCustom?: string | null;
+    /**
+     * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+     */
+    bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+    /**
+     * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+     */
+    bgAttachment?: ('scroll' | 'fixed') | null;
+    /**
+     * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+     */
+    padding?: string | null;
+  };
   language?: ('typescript' | 'javascript' | 'css') | null;
   code: string;
   id?: string | null;

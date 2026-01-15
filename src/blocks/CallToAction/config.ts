@@ -1,11 +1,13 @@
 import type { Block } from 'payload'
 
 import { linkGroup } from '../../fields/linkGroup'
+import { settingField } from '@/fields/setting'
 
 export const CallToAction: Block = {
   slug: 'cta',
   interfaceName: 'CallToActionBlock',
   fields: [
+    settingField({}),
     {
       name: 'richText',
       type: 'richText',

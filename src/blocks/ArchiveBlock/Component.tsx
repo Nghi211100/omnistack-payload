@@ -17,6 +17,7 @@ import ServicesArchive from '@/components/ServicceArchive'
 import ReviewsArchive from '@/components/ReviewArchive'
 import PortfolioArchive from '@/components/PortfoliosAchive'
 import { cookies } from 'next/headers'
+import { blockSettingStyle } from '@/utilities/blockSettingStyle'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -31,6 +32,7 @@ export const ArchiveBlock: React.FC<
     populateBy,
     selectedDocs,
     relationTo,
+    settings,
   } = props
 
   const cookieStore = await cookies()
@@ -168,7 +170,7 @@ export const ArchiveBlock: React.FC<
   }
 
   return (
-    <div className="my-16" id={`block-${id}`}>
+    <div className="py-8" id={`block-${id}`} style={blockSettingStyle(settings)}>
       {introContent && (
         <div className="container">
           <RichText data={introContent} enableGutter={false} />

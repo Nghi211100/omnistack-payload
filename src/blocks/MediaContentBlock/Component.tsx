@@ -5,6 +5,7 @@ import { cn } from '@/utilities/ui'
 import { StaticImageData } from 'next/image'
 import { MediaContentBlock } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
+import { blockSettingStyle } from '@/utilities/blockSettingStyle'
 type Props = MediaContentBlock & {
   breakout?: boolean
   className?: string
@@ -29,11 +30,10 @@ const MediaContent: React.FC<Props> = async (props) => {
     media,
     staticImage,
     disableInnerContainer,
-    alignment,
     content,
-    layout,
     enableButtonDirect,
     link,
+    settings,
   } = props
 
   const renderMedia = () => {
@@ -49,13 +49,14 @@ const MediaContent: React.FC<Props> = async (props) => {
             'md:w-2/5',
             'md:w-3/5',
             'w-full',
-            [`md:w-${layout}`],
+            [`md:w-${settings?.layout}`],
           )}
         >
           <Media
             imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
             resource={media}
             src={staticImage}
+            className="object-contain"
           />
         </div>
       )
@@ -69,9 +70,9 @@ const MediaContent: React.FC<Props> = async (props) => {
           className={cn(
             {
               container: !disableInnerContainer,
-              'mt-6': layout === 'full',
+              'mt-6': settings?.layout === 'full',
             },
-            [`md:w-${reverseLayout(layout as string)}`],
+            [`md:w-${reverseLayout(settings?.layout as string)}`],
             'w-full',
           )}
         >
@@ -83,33 +84,27 @@ const MediaContent: React.FC<Props> = async (props) => {
   }
 
   const renderLayout = () => {
-    if (alignment === 'contentMedia') {
+    if (settings?.alignment === 'contentMedia') {
       return (
         <>
-          {renderMedia()}
           {renderContent()}
+          {renderMedia()}
         </>
       )
     }
     return (
       <>
-        {renderContent()}
         {renderMedia()}
+        {renderContent()}
       </>
     )
   }
   return (
     <div
-      className={cn(
-        {
-          container: enableGutter,
-          'w-full': layout === 'full',
-        },
-        className,
-        'flex flex-col md:flex-row gap-6',
-      )}
+      className={cn({ container: enableGutter, className }, 'py-8')}
+      style={blockSettingStyle(settings)}
     >
-      {renderLayout()}
+      <div className={cn('flex flex-col md:flex-row gap-6 w-full')}>{renderLayout()}</div>
     </div>
   )
 }

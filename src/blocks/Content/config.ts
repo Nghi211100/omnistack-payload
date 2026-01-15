@@ -6,6 +6,7 @@ import { link } from '@/fields/link'
 import { FormBlock } from '../Form/config'
 import { MapsBlock } from '../MapsBlock/config'
 import { FeatureBlock } from '../FeatureBlock/config'
+import { settingField } from '@/fields/setting'
 
 const columnFields: Field[] = [
   {
@@ -65,6 +66,7 @@ export const Content: Block = {
   slug: 'content',
   interfaceName: 'ContentBlock',
   fields: [
+    settingField({}),
     {
       name: 'columns',
       type: 'array',

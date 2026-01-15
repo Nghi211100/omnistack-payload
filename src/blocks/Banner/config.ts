@@ -1,20 +1,25 @@
+import { settingField } from '@/fields/setting'
 import type { Block } from 'payload'
 
 export const Banner: Block = {
   slug: 'banner',
   fields: [
-    {
-      name: 'style',
-      type: 'select',
-      defaultValue: 'info',
-      options: [
-        { label: 'Info', value: 'info' },
-        { label: 'Warning', value: 'warning' },
-        { label: 'Error', value: 'error' },
-        { label: 'Success', value: 'success' },
+    settingField({
+      overrides: [
+        {
+          name: 'style',
+          type: 'select',
+          defaultValue: 'info',
+          options: [
+            { label: 'Info', value: 'info' },
+            { label: 'Warning', value: 'warning' },
+            { label: 'Error', value: 'error' },
+            { label: 'Success', value: 'success' },
+          ],
+          required: true,
+        },
       ],
-      required: true,
-    },
+    }),
     {
       name: 'content',
       type: 'richText',

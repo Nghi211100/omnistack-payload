@@ -1,9 +1,11 @@
+import { settingField } from '@/fields/setting'
 import type { Block } from 'payload'
 
 export const Archive: Block = {
   slug: 'archive',
   interfaceName: 'ArchiveBlock',
   fields: [
+    settingField({}),
     {
       name: 'introContent',
       type: 'richText',

@@ -4,11 +4,12 @@ import type { CallToActionBlock as CTABlockProps } from '@/payload-types'
 
 import RichText from '@/components/RichText'
 import { CMSLink } from '@/components/Link'
+import { blockSettingStyle } from '@/utilities/blockSettingStyle'
 
-export const CallToActionBlock: React.FC<CTABlockProps> = ({ links, richText }) => {
+export const CallToActionBlock: React.FC<CTABlockProps> = ({ links, richText, settings }) => {
   return (
-    <div className="container">
-      <div className="bg-card rounded border-border border p-4 flex flex-col gap-8 md:flex-row md:justify-between md:items-center">
+    <div className="py-8" style={blockSettingStyle(settings)}>
+      <div className="bg-card rounded border-border border p-4 flex flex-col gap-8 md:flex-row md:justify-between md:items-center container">
         <div className="max-w-[48rem] flex items-center">
           {richText && <RichText className="mb-0" data={richText} enableGutter={false} />}
         </div>

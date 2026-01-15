@@ -1,13 +1,12 @@
+import { settingField } from '@/fields/setting'
 import { Block } from 'payload'
 
 export const FeatureBlock: Block = {
   slug: 'featureBlock',
   interfaceName: 'FeatureBlock',
   fields: [
-    {
-      type: 'collapsible',
-      label: 'Setting',
-      fields: [
+    settingField({
+      overrides: [
         {
           name: 'layout',
           type: 'select',
@@ -18,7 +17,7 @@ export const FeatureBlock: Block = {
           ],
         },
       ],
-    },
+    }),
     {
       name: 'items',
       type: 'array',
