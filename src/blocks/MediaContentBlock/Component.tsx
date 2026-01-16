@@ -100,11 +100,10 @@ const MediaContent: React.FC<Props> = async (props) => {
     )
   }
   return (
-    <div
-      className={cn({ container: enableGutter, className }, 'py-8 block-setting')}
-      style={blockSettingStyle(settings)}
-    >
-      <div className={cn('flex flex-col md:flex-row gap-6 w-full')}>{renderLayout()}</div>
+    <div className={cn(className, 'py-8 block-setting')} style={blockSettingStyle(settings)}>
+      <div className={cn('flex flex-col md:flex-row gap-6 w-full', { container: enableGutter })}>
+        {renderLayout()}
+      </div>
     </div>
   )
 }

@@ -21,7 +21,10 @@ export const blockSettingStyle = (settings?: Setting) => {
 
   if (settings.padding) style.padding = `${settings.padding} 0 ${settings.padding}`
 
-  if (settings.bgType === 'transparent') return style
+  if (settings.bgType === 'transparent') {
+    style.background = `transparent`
+    return style
+  }
 
   if (settings.bgType === 'color') {
     style = {
