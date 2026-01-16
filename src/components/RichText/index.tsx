@@ -58,29 +58,33 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...LinkJSXConverter({ internalDocToHref }),
   ...TypographyJSXConverters,
   blocks: {
-    banner: ({ node }) => <BannerBlock className="col-start-2 mb-4 !py-0" {...node.fields} />,
+    banner: ({ node }) => (
+      <BannerBlock className="col-start-2 mb-4 !py-0 [&>div]:px-0" {...node.fields} />
+    ),
     mediaBlock: ({ node }) => (
       <MediaBlock
         className="col-start-1 col-span-3 !py-0"
-        imgClassName="m-0"
+        imgClassName="m-0 [&>div]:px-0"
         {...node.fields}
         captionClassName="mx-auto max-w-[48rem]"
         enableGutter={false}
         disableInnerContainer={true}
       />
     ),
-    code: ({ node }) => <CodeBlock className="col-start-2 !py-0" {...node.fields} />,
-    cta: ({ node }) => <CallToActionBlock {...node.fields} className="!py-0" />,
+    code: ({ node }) => <CodeBlock className="col-start-2 !py-0 [&>div]:px-0" {...node.fields} />,
+    cta: ({ node }) => <CallToActionBlock {...node.fields} className="!py-0 [&>div]:px-0" />,
     formBlock: ({ node }) => (
       <FormBlock
         {...node.fields}
-        className="!p-0"
+        className="!p-0 [&>div]:px-0"
         form={node.fields.form as FormBlockType['form']}
         introContent={node.fields.introContent as FormBlockType['introContent']}
       />
     ),
-    featureBlock: ({ node }) => <FeatureBlock {...node.fields} className="!p-0" />,
-    mapsBlock: ({ node }) => <MapsBlock {...node.fields} className="!p-0 [&_p]:my-0" />,
+    featureBlock: ({ node }) => <FeatureBlock {...node.fields} className="!p-0 [&>div]:px-0" />,
+    mapsBlock: ({ node }) => (
+      <MapsBlock {...node.fields} className="!p-0 [&_p]:my-0 [&>div]:px-0" />
+    ),
   },
   link: ({ node }) => {
     const { doc, url, newTab } = node.fields
