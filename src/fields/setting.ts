@@ -19,6 +19,7 @@ export const settingField = ({ overrides }: { overrides?: Field[] }): Field => {
                 name: 'bgType',
                 label: 'Type',
                 type: 'radio',
+                defaultValue: 'transparent',
                 options: [
                   {
                     label: 'Image',
