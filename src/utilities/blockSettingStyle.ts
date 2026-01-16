@@ -25,9 +25,11 @@ export const blockSettingStyle = (settings?: Setting) => {
 
   if (settings.bgType === 'color') {
     style = {
+      ...style,
       '--bg-light': settings.bgLightColor,
       '--bg-dark': settings.bgDarkColor,
     } as CSSProperties
+
     return style
   }
 
