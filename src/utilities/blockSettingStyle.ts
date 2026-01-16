@@ -36,12 +36,12 @@ export const blockSettingStyle = (settings?: Setting) => {
     return style
   }
 
+  style.backgroundRepeat = `${settings.bgRepeat ? 'repeat' : 'no-repeat'}`
+
   if (settings.bgImage && typeof settings.bgImage === 'object')
     style.backgroundImage = `url(${settings.bgImage.url})`
 
   if (settings.bgPosition) style.backgroundPosition = `${settings.bgPosition.join(' ')}`
-
-  if (settings.bgRepeat) style.backgroundRepeat = `${settings.bgRepeat ? 'repeat' : 'no-repeat'}`
 
   if (settings.bgSize) {
     if (settings.bgSize !== 'custom') {
