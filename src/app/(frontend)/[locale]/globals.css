@@ -133,3 +133,11 @@ html[data-theme='light'] {
 a {
   text-decoration: none !important;
 }
+
+[data-theme='dark'] .block-setting {
+  background-color: var(--bg-dark);
+}
+
+[data-theme='light'] .block-setting {
+  background-color: var(--bg-light);
+}

@@ -429,9 +429,13 @@ export interface CallToActionBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */
@@ -519,9 +523,13 @@ export interface ContentBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */
@@ -611,9 +619,13 @@ export interface MediaBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */
@@ -659,9 +671,13 @@ export interface ArchiveBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */
@@ -731,9 +747,13 @@ export interface FormBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */
@@ -974,9 +994,13 @@ export interface FeatureBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */
@@ -1043,9 +1067,13 @@ export interface MediaContentBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */
@@ -1134,9 +1162,13 @@ export interface MapsBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */
@@ -1592,7 +1624,8 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
-        bgColor?: T;
+        bgLightColor?: T;
+        bgDarkColor?: T;
         bgImage?: T;
         bgRepeat?: T;
         bgSize?: T;
@@ -1630,7 +1663,8 @@ export interface ContentBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
-        bgColor?: T;
+        bgLightColor?: T;
+        bgDarkColor?: T;
         bgImage?: T;
         bgRepeat?: T;
         bgSize?: T;
@@ -1670,7 +1704,8 @@ export interface MediaBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
-        bgColor?: T;
+        bgLightColor?: T;
+        bgDarkColor?: T;
         bgImage?: T;
         bgRepeat?: T;
         bgSize?: T;
@@ -1692,7 +1727,8 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
-        bgColor?: T;
+        bgLightColor?: T;
+        bgDarkColor?: T;
         bgImage?: T;
         bgRepeat?: T;
         bgSize?: T;
@@ -1719,7 +1755,8 @@ export interface FormBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
-        bgColor?: T;
+        bgLightColor?: T;
+        bgDarkColor?: T;
         bgImage?: T;
         bgRepeat?: T;
         bgSize?: T;
@@ -1743,7 +1780,8 @@ export interface FeatureBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
-        bgColor?: T;
+        bgLightColor?: T;
+        bgDarkColor?: T;
         bgImage?: T;
         bgRepeat?: T;
         bgSize?: T;
@@ -1772,7 +1810,8 @@ export interface MediaContentBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
-        bgColor?: T;
+        bgLightColor?: T;
+        bgDarkColor?: T;
         bgImage?: T;
         bgRepeat?: T;
         bgSize?: T;
@@ -1808,7 +1847,8 @@ export interface MapsBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
-        bgColor?: T;
+        bgLightColor?: T;
+        bgDarkColor?: T;
         bgImage?: T;
         bgRepeat?: T;
         bgSize?: T;
@@ -2505,9 +2545,13 @@ export interface BannerBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */
@@ -2568,9 +2612,13 @@ export interface CodeBlock {
      */
     bgType?: ('image' | 'color' | 'transparent') | null;
     /**
-     * Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
      */
-    bgColor?: string | null;
+    bgLightColor?: string | null;
+    /**
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     */
+    bgDarkColor?: string | null;
     /**
      * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
      */

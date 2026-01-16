@@ -3,7 +3,8 @@ import { CSSProperties } from 'react'
 
 type Setting = {
   bgType?: ('image' | 'color' | 'transparent') | null
-  bgColor?: string | null
+  bgLightColor?: string | null
+  bgDarkColor?: string | null
   bgImage?: (number | null) | Media
   bgRepeat?: boolean | null
   bgSize?: ('contain' | 'cover' | 'custom') | null
@@ -13,35 +14,38 @@ type Setting = {
   padding?: string | null
 }
 
-export const blockSettingStyle = (setting?: Setting) => {
+export const blockSettingStyle = (settings?: Setting) => {
   let style: CSSProperties = { background: 'transparent' }
 
-  if (!setting) return style
+  if (!settings) return style
 
-  if (setting.padding) style.padding = `${setting.padding} 0 ${setting.padding}`
+  if (settings.padding) style.padding = `${settings.padding} 0 ${settings.padding}`
 
-  if (setting.bgType === 'transparent') return style
+  if (settings.bgType === 'transparent') return style
 
-  if (setting.bgType === 'color' && setting.bgColor) {
-    style = { backgroundColor: `${setting.bgColor}` }
+  if (settings.bgType === 'color') {
+    style = {
+      '--bg-light': settings.bgLightColor,
+      '--bg-dark': settings.bgDarkColor,
+    } as CSSProperties
     return style
   }
 
-  if (setting.bgImage && typeof setting.bgImage === 'object')
-    style.backgroundImage = `url(${setting.bgImage.url})`
+  if (settings.bgImage && typeof settings.bgImage === 'object')
+    style.backgroundImage = `url(${settings.bgImage.url})`
 
-  if (setting.bgPosition) style.backgroundPosition = `${setting.bgPosition.join(' ')}`
+  if (settings.bgPosition) style.backgroundPosition = `${settings.bgPosition.join(' ')}`
 
-  if (setting.bgRepeat) style.backgroundRepeat = `${setting.bgRepeat ? 'repeat' : 'no-repeat'}`
+  if (settings.bgRepeat) style.backgroundRepeat = `${settings.bgRepeat ? 'repeat' : 'no-repeat'}`
 
-  if (setting.bgSize) {
-    if (setting.bgSize !== 'custom') {
-      style.backgroundSize = `${setting.bgSize}`
+  if (settings.bgSize) {
+    if (settings.bgSize !== 'custom') {
+      style.backgroundSize = `${settings.bgSize}`
     } else {
-      style.backgroundSize = `${setting.bgSizeCustom}`
+      style.backgroundSize = `${settings.bgSizeCustom}`
     }
   }
 
-  if (setting.bgAttachment) style.backgroundAttachment = `${setting.bgAttachment}`
+  if (settings.bgAttachment) style.backgroundAttachment = `${settings.bgAttachment}`
   return style
 }

@@ -35,7 +35,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
   if (media && typeof media === 'object') caption = media.caption
 
   return (
-    <div className={cn(className, 'py-8')} style={blockSettingStyle(settings)}>
+    <div className={cn(className, 'py-8 block-setting')} style={blockSettingStyle(settings)}>
       <div
         className={cn({
           container: enableGutter,

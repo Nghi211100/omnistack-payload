@@ -13,7 +13,7 @@ type Props = FeatureBlockType & {
 const FeatureBlock: React.FC<Props> = (props) => {
   const { items, className, settings } = props
   return (
-    <div className={cn(className, 'py-8')} style={blockSettingStyle(settings)}>
+    <div className={cn(className, 'py-8 block-setting')} style={blockSettingStyle(settings)}>
       <div
         className={cn(
           ' container grid grid-cols-2 gap-x-8 gap-y-12',

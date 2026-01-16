@@ -18,7 +18,7 @@ export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   }
 
   return (
-    <div className="py-8" style={blockSettingStyle(settings)}>
+    <div className="py-8 block-setting" style={blockSettingStyle(settings)}>
       <div className="grid grid-cols-4 lg:grid-cols-12 gap-y-8 gap-x-16 container ">
         {columns &&
           columns.length > 0 &&

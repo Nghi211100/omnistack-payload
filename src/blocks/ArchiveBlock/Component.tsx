@@ -170,7 +170,7 @@ export const ArchiveBlock: React.FC<
   }
 
   return (
-    <div className="py-8" id={`block-${id}`} style={blockSettingStyle(settings)}>
+    <div className="py-8 block-setting" id={`block-${id}`} style={blockSettingStyle(settings)}>
       {introContent && (
         <div className="container">
           <RichText data={introContent} enableGutter={false} />

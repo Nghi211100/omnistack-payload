@@ -40,15 +40,31 @@ export const settingField = ({ overrides }: { overrides?: Field[] }): Field => {
                 },
               },
               {
-                name: 'bgColor',
-                label: 'Color custom',
-                type: 'text',
-                admin: {
-                  condition: (_, siblingData) => siblingData.bgType === 'color',
-                  width: '50%',
-                  description:
-                    'Custom CSS color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.',
-                },
+                type: 'row',
+                fields: [
+                  {
+                    name: 'bgLightColor',
+                    label: 'Light Color custom',
+                    type: 'text',
+                    admin: {
+                      condition: (_, siblingData) => siblingData.bgType === 'color',
+                      width: '50%',
+                      description:
+                        'Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.',
+                    },
+                  },
+                  {
+                    name: 'bgDarkColor',
+                    label: 'Dark Color custom',
+                    type: 'text',
+                    admin: {
+                      condition: (_, siblingData) => siblingData.bgType === 'color',
+                      width: '50%',
+                      description:
+                        'Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.',
+                    },
+                  },
+                ],
               },
               {
                 type: 'row',
