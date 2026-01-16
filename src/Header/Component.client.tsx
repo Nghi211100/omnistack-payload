@@ -1,13 +1,12 @@
 'use client'
 import { Disclosure } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, PhoneIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import React, { useEffect, useState } from 'react'
 import type { Header } from '@/payload-types'
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 import ThemeSwitcher from './ThemeSwitcher'
-import Image from 'next/image'
 import { LocaleSwitcher } from './LocationSwitcher'
 import { cn } from '@/utilities/ui'
 import { Link, usePathname, useRouter } from '@/i18n/routing'
@@ -70,7 +69,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   <div className="md:flex hidden gap-2">
                     {data.phone && (
                       <div className="my-auto gap-1 flex text-sm md:test-base items-center">
-                        <Image alt="phone-icon" width={24} height={24} src={'/icons/phone.svg'} />{' '}
+                        <PhoneIcon className="text-black dark:text-white" width={24} height={24} />
                         <Link href={`tel:${data.phone}`}>{data.phone}</Link>
                       </div>
                     )}
