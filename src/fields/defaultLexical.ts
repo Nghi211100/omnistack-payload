@@ -10,7 +10,7 @@ import {
   InlineToolbarFeature,
   FixedToolbarFeature,
   HeadingFeature,
-  HorizontalRuleFeature,
+  TextStateFeature,
 } from '@payloadcms/richtext-lexical'
 import {
   TextColorFeature,
@@ -19,7 +19,7 @@ import {
   TextLetterSpacingFeature,
   TextLineHeightFeature,
 } from 'payload-lexical-typography'
-import { M } from 'vitest/dist/chunks/reporters.d.DL9pg5DB.js'
+import { textShadowState } from '@/components/RichText'
 
 export const defaultLexical = lexicalEditor({
   features: ({ defaultFeatures }) => [
@@ -65,6 +65,11 @@ export const defaultLexical = lexicalEditor({
     InlineToolbarFeature(),
     TextColorFeature({
       colors: ['#141414', '#4b5563', '#ffffff', '#3b82f6'],
+    }),
+    TextStateFeature({
+      state: {
+        ...textShadowState,
+      },
     }),
   ],
 })

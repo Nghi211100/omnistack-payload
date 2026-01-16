@@ -31,6 +31,38 @@ import { FormBlock, FormBlockType } from '@/blocks/Form/Component'
 import FeatureBlock from '@/blocks/FeatureBlock/Component'
 import MapsBlock from '@/blocks/MapsBlock/Component'
 import { CMSLink } from '../Link'
+import type {
+  StateValues,
+  TextStateFeatureProps,
+} from 'node_modules/@payloadcms/richtext-lexical/dist/features/textState/feature.server'
+import { CSSProperties } from 'react'
+
+export const textShadowState: TextStateFeatureProps['state'] = {
+  textShadow: {
+    whiteShadow: {
+      label: 'White Shadow',
+      css: { 'text-shadow': '0.2em 0.2em 0.6em white, -0.01em 0em 0.2em white, 0 0 0.1em white' },
+    },
+    blackShadow: {
+      label: 'Black Shadow',
+      css: {
+        'text-shadow': '0.2em 0.2em 0.6em black, -0.01em 0em 0.3em black, 0 0 0.1em black',
+      },
+    },
+    blueShadow: {
+      label: 'Blue Shadow',
+      css: {
+        'text-shadow': '0.2em 0.2em 0.6em blue, -0.01em 0em 0.3em black, 0 0 0.1em blue',
+      },
+    },
+  },
+}
+
+type ExtractAllTextStateKeys<T> = {
+  [P in keyof T]: T[P] extends StateValues ? keyof T[P] : never
+}[keyof T]
+
+type TextShadowStateKeys = ExtractAllTextStateKeys<typeof textShadowState>
 
 type NodeTypes =
   | DefaultNodeTypes
@@ -117,6 +149,26 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         {textContent}
       </CMSLink>
     )
+  },
+  text: (args) => {
+    const { node } = args
+    const defaultText =
+      typeof TypographyJSXConverters.text === 'function'
+        ? TypographyJSXConverters.text(args)
+        : node.text
+
+    const styles: CSSProperties = {}
+    if (node.$) {
+      Object.entries(textShadowState).forEach(([stateKey, stateValues]) => {
+        const stateValue = node.$ && (node.$[stateKey] as TextShadowStateKeys)
+        if (stateValue && stateValues[stateValue]) {
+          Object.assign(styles, stateValues[stateValue].css)
+        }
+      })
+
+      return <span style={styles}>{defaultText}</span>
+    }
+    return defaultText
   },
 })
 
