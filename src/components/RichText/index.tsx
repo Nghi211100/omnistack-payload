@@ -58,10 +58,10 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...LinkJSXConverter({ internalDocToHref }),
   ...TypographyJSXConverters,
   blocks: {
-    banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
+    banner: ({ node }) => <BannerBlock className="col-start-2 mb-4 py-0" {...node.fields} />,
     mediaBlock: ({ node }) => (
       <MediaBlock
-        className="col-start-1 col-span-3"
+        className="col-start-1 col-span-3 py-0"
         imgClassName="m-0"
         {...node.fields}
         captionClassName="mx-auto max-w-[48rem]"
@@ -69,12 +69,12 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
         disableInnerContainer={true}
       />
     ),
-    code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
-    cta: ({ node }) => <CallToActionBlock {...node.fields} />,
+    code: ({ node }) => <CodeBlock className="col-start-2 py-0" {...node.fields} />,
+    cta: ({ node }) => <CallToActionBlock {...node.fields} className="py-0" />,
     formBlock: ({ node }) => (
       <FormBlock
         {...node.fields}
-        className="px-0"
+        className="p-0"
         form={node.fields.form as FormBlockType['form']}
         introContent={node.fields.introContent as FormBlockType['introContent']}
       />
