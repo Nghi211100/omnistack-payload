@@ -10,6 +10,7 @@ import ThemeSwitcher from './ThemeSwitcher'
 import { LocaleSwitcher } from './LocationSwitcher'
 import { cn } from '@/utilities/ui'
 import { Link, usePathname, useRouter } from '@/i18n/routing'
+import { motion } from 'motion/react'
 
 interface HeaderClientProps {
   data: Header
@@ -33,10 +34,18 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   }, [headerTheme])
 
   return (
-    <header>
+    <motion.header
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{
+        duration: 0.5,
+        ease: 'easeInOut',
+      }}
+      className="fixed w-full z-[9999]"
+    >
       <Disclosure
         as="nav"
-        className="bg-background/80 backdrop-blur shadow-lg dark:shadow-[inset_0px_-1px_1px_#132f4c] fixed w-full z-[9999]"
+        className="bg-background/80 backdrop-blur shadow-lg dark:shadow-[inset_0px_-1px_1px_#132f4c] "
       >
         {({ open }) => (
           <>
@@ -106,6 +115,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           </>
         )}
       </Disclosure>
-    </header>
+    </motion.header>
   )
 }
