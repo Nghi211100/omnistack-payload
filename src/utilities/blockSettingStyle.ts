@@ -15,7 +15,7 @@ type Setting = {
 }
 
 export const blockSettingStyle = (settings?: Setting) => {
-  let style: CSSProperties = { background: 'transparent' }
+  let style: CSSProperties = {}
 
   if (!settings) return style
 
