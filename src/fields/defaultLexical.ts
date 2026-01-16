@@ -19,6 +19,7 @@ import {
   TextLetterSpacingFeature,
   TextLineHeightFeature,
 } from 'payload-lexical-typography'
+import { M } from 'vitest/dist/chunks/reporters.d.DL9pg5DB.js'
 
 export const defaultLexical = lexicalEditor({
   features: ({ defaultFeatures }) => [
@@ -63,7 +64,7 @@ export const defaultLexical = lexicalEditor({
     FixedToolbarFeature(),
     InlineToolbarFeature(),
     TextColorFeature({
-      colors: ['#3b82f6', '#141414', '#4b5563'],
+      colors: ['#141414', '#4b5563', '#ffffff', '#3b82f6'],
     }),
   ],
 })
