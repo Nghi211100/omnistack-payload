@@ -28,7 +28,7 @@ import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { cn } from '@/utilities/ui'
 import { FormBlock, FormBlockType } from '@/blocks/Form/Component'
-import FeatureBlock from '@/blocks/FeatureBlock/Component'
+import { FeatureBlock } from '@/blocks/FeatureBlock/Component'
 import MapsBlock from '@/blocks/MapsBlock/Component'
 import { CMSLink } from '../Link'
 import type {
@@ -67,14 +67,14 @@ type TextShadowStateKeys = ExtractAllTextStateKeys<typeof textShadowState>
 type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<
-      | CTABlockProps
-      | MediaBlockProps
-      | BannerBlockProps
-      | CodeBlockProps
-      | FormBlockProps
-      | FeatureBlockProps
-      | MapsBlockType
-    >
+    | CTABlockProps
+    | MediaBlockProps
+    | BannerBlockProps
+    | CodeBlockProps
+    | FormBlockProps
+    | FeatureBlockProps
+    | MapsBlockType
+  >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!

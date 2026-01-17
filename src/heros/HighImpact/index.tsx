@@ -48,7 +48,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ link, media, richText }
               x: -100,
               opacity: 0,
             }}
-            animate={{ x: 0, opacity: 1 }}
+            whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
             className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 flex flex-col justify-center"
           >
@@ -60,7 +60,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ link, media, richText }
               x: 100,
               opacity: 0,
             }}
-            animate={{ x: 0, opacity: 1 }}
+            whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.5, ease: 'easeInOut' }}
             className="mx-auto mt-10 flex max-w-2xl sm:mt-16 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32"
           >

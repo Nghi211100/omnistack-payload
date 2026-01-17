@@ -4,20 +4,11 @@ import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import type {} from '@/payload-types'
 import { cn } from '@/utilities/ui'
-import { StaticImageData } from 'next/image'
-import { MediaContentBlock } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { blockSettingStyle } from '@/utilities/blockSettingStyle'
 import { motion } from 'motion/react'
+import { MediaContentProps } from './Component'
 
-type Props = MediaContentBlock & {
-  breakout?: boolean
-  className?: string
-  enableGutter?: boolean
-  imgClassName?: string
-  staticImage?: StaticImageData
-  disableInnerContainer?: boolean
-}
 const reverseLayout = (fraction: string) => {
   const [a, b] = fraction.split('/').map(Number)
   if (!Number.isFinite(a) || !Number.isFinite(b) || b === 0) {
@@ -26,7 +17,7 @@ const reverseLayout = (fraction: string) => {
   return `${b - a}/${b}`
 }
 
-const MediaContentClient = ({ props }: { props: Props }) => {
+const MediaContentClient = ({ props }: { props: MediaContentProps }) => {
   const {
     className,
     enableGutter = true,
@@ -50,7 +41,6 @@ const MediaContentClient = ({ props }: { props: Props }) => {
           }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeInOut' }}
-          viewport={{ once: true }}
           className={cn(
             'md:w-1/2',
             'md:w-1/3',
@@ -64,7 +54,7 @@ const MediaContentClient = ({ props }: { props: Props }) => {
           )}
         >
           <Media
-            imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
+            imgClassName={cn(imgClassName)}
             resource={media}
             src={staticImage}
             className="object-contain"
@@ -84,7 +74,6 @@ const MediaContentClient = ({ props }: { props: Props }) => {
           }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeInOut' }}
-          viewport={{ once: true }}
           className={cn(
             {
               container: !disableInnerContainer,

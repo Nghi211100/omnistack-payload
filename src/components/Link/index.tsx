@@ -38,9 +38,8 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
-          reference.value.slug
-        }`
+      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${reference.value.slug
+      }`
       : url
 
   if (!href) return null
@@ -66,7 +65,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
         { 'text-right': position === 'right' },
       )}
     >
-      <Button asChild className={className} size={size} variant={appearance}>
+      <Button asChild className={cn(className, 'hover:scale-105 transition duration-300 ease-in-out')} size={size} variant={appearance}>
         <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
           {label && label}
           {children && children}

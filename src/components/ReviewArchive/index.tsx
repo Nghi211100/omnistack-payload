@@ -35,7 +35,7 @@ const ReviewsArchive = ({ reviews }: { reviews: Review[] }) => {
         <Slider {...settingsDesk} className="h-full md:!block !hidden">
           {reviews.map((review) => (
             <div
-              className={cn('px-6 md:flex md:flex-col py-16 pl-0 pr-10 lg:pr-16 h-full review')}
+              className={cn('!pr-6 !pl-8 md:flex md:flex-col py-16 h-full review')}
               key={review.id}
             >
               <blockquote className="mt-6 md:flex md:flex-grow md:flex-col">

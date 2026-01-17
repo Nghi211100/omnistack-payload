@@ -7,9 +7,9 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
-import FeatureBlock from './FeatureBlock/Component'
 import { MediaContent } from './MediaContentBlock/Component'
 import MapsBlock from './MapsBlock/Component'
+import { FeatureBlock } from './FeatureBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,

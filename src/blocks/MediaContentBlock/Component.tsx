@@ -4,7 +4,7 @@ import type { MediaContentBlock } from '@/payload-types'
 import MediaContentClient from './Component.client'
 import { StaticImageData } from 'next/image'
 
-type Props = MediaContentBlock & {
+export type MediaContentProps = MediaContentBlock & {
   breakout?: boolean
   className?: string
   enableGutter?: boolean
@@ -12,6 +12,6 @@ type Props = MediaContentBlock & {
   staticImage?: StaticImageData
   disableInnerContainer?: boolean
 }
-export const MediaContent: React.FC<Props> = async (props) => {
+export const MediaContent: React.FC<MediaContentProps> = (props) => {
   return <MediaContentClient props={props} />
 }

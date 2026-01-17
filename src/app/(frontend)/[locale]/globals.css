@@ -94,6 +94,8 @@
 }
 
 html {
+  overflow-x: hidden;
+  width: 100vw;
   opacity: 0;
   font-family:
     system-ui,
@@ -123,11 +125,11 @@ html[data-theme='light'] {
 
 .slick-current > div > .review {
   border-right: 1px solid #137894;
-  padding-left: 0px;
 }
 
 .slick-slide > div > div {
-  padding-left: 50px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 a {
