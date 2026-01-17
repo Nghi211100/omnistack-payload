@@ -94,8 +94,6 @@
 }
 
 html {
-  overflow-x: hidden;
-  width: 100vw;
   opacity: 0;
   font-family:
     system-ui,
@@ -114,6 +112,13 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+body{
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100vw;
+  height: 100vh;
 }
 
 .slick-arrow {

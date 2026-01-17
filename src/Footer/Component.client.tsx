@@ -11,13 +11,13 @@ import { motion } from 'motion/react'
 export function FooterClient({ data }: { data: Footer }) {
     return (
         <footer
-            className="bg-white dark:bg-[#001e3c] relative bottom-0 border-t border-gray-200 dark:border-[#183b61] "
+            className="bg-white dark:bg-[#001e3c] relative bottom-0 border-t border-gray-200 dark:border-[#183b61]"
             aria-labelledby="footer-heading"
         >
             <h2 id="footer-heading" className="sr-only">
                 Footer
             </h2>
-            <div className="container pb-10 pt-10">
+            <div className="container pb-10 pt-10 overflow-auto">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-32">
                     <motion.div
                         initial={{ y: 100, opacity: 0 }}

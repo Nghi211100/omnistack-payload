@@ -14,7 +14,7 @@ const ReviewsArchive = ({ reviews }: { reviews: Review[] }) => {
     speed: 1000,
     slidesToShow: 2,
     slidesToScroll: 2,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
   }
 
@@ -24,7 +24,7 @@ const ReviewsArchive = ({ reviews }: { reviews: Review[] }) => {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     arrows: false,
   }
