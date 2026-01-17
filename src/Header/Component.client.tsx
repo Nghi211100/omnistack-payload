@@ -49,9 +49,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       >
         {({ open }) => (
           <>
-            <div className="container px-5 sm:px-8 relative">
+            <div className="container relative">
               <div className="relative flex h-16 justify-between">
-                <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
+                <div className="absolute inset-y-0 right-0 flex items-center md:hidden">
                   {/* Mobile menu button */}
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-xl p-2 text-blue-500 focus:outline-none focus:ring-0 border border-gray-300 dark:border-[#183b61]">
                     <span className="sr-only">Open main menu</span>
@@ -76,7 +76,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                     </div>
                   </div>
                 </div>
-                <div className="absolute inset-y-0 right-11 sm:right-0 flex gap-2 md:gap-5">
+                <div className="absolute inset-y-0 right-11 md:right-0 flex gap-2 md:gap-5">
                   <div className="md:flex hidden gap-6">
                     {data.phone && (
                       <motion.div
