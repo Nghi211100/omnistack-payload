@@ -18,9 +18,8 @@ export const HeaderNav: React.FC<{ data: HeaderType; currentPath: string }> = ({
     <nav className="md:flex gap-3 items-center">
       {navItems.map(({ link }, i) => {
         return (
-          <motion.div  whileHover={{scale: 1.05, y:-4}}>
+          <motion.div  whileHover={{scale: 1.05, y:-4}} key={i}>
             <CMSLink
-            key={i}
             {...link}
             className={cn(
               'px-2.5 py-[22px] inline-flex items-center text-base font-medium text-gray-900 dark:text-gray-50 hover:border-blue-500 hover:border-b-2',
