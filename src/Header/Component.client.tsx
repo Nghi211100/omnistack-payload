@@ -63,24 +63,28 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 items-center md:items-stretch justify-start gap-5">
-                  <div className="flex flex-shrink-0 items-center">
+                  <motion.div
+                    whileHover={{scale: 1.05, y:-3}}
+                    className="flex flex-shrink-0 items-center">
                     <Link href="/">
                       <Logo loading="eager" priority="high" />
                     </Link>
-                  </div>
+                  </motion.div>
                   <div className="hidden w-full md:flex justify-between">
                     <div className="flex">
                       <HeaderNav data={data} currentPath={pathname} />
                     </div>
                   </div>
                 </div>
-                <div className="absolute inset-y-0 right-11 sm:right-0 flex gap-2 md:gap-8">
-                  <div className="md:flex hidden gap-2">
+                <div className="absolute inset-y-0 right-11 sm:right-0 flex gap-2 md:gap-5">
+                  <div className="md:flex hidden gap-6">
                     {data.phone && (
-                      <div className="my-auto gap-1 flex text-sm md:test-base items-center">
+                      <motion.div
+                        whileHover={{scale: 1.05, y:-3}}
+                        className="my-auto gap-1 flex text-sm md:test-base items-center">
                         <PhoneIcon className="text-black dark:text-white" width={24} height={24} />
                         <Link href={`tel:${data.phone}`}>{data.phone}</Link>
-                      </div>
+                      </motion.div>
                     )}
                     <ThemeSwitcher />
                   </div>

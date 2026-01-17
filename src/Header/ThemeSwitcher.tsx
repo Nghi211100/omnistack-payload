@@ -1,6 +1,7 @@
 import { useTheme } from '@/providers/Theme'
 import { themeLocalStorageKey } from '@/providers/Theme/ThemeSelector/types'
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline'
+import { motion } from 'motion/react'
 import React, { useState } from 'react'
 
 export default function ThemeSwitcher() {
@@ -23,11 +24,12 @@ export default function ThemeSwitcher() {
   }, [])
 
   return (
-    <button
+    <motion.button
+      whileHover={{scale: 1.05, y:-3}}
       className="border border-gray-300 rounded-xl p-2 w-max h-max my-auto text-blue-500 dark:border-[#183b61]"
       onClick={() => onThemeChange()}
     >
       {value === 'light' ? <MoonIcon className="h-4 w-4" /> : <SunIcon className="h-4 w-4" />}
-    </button>
+    </motion.button>
   )
 }

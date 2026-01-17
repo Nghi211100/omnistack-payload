@@ -6,6 +6,7 @@ import type { Header as HeaderType } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { cn } from '@/utilities/ui'
+import { motion } from 'motion/react'
 
 export const HeaderNav: React.FC<{ data: HeaderType; currentPath: string }> = ({
   data,
@@ -17,7 +18,8 @@ export const HeaderNav: React.FC<{ data: HeaderType; currentPath: string }> = ({
     <nav className="md:flex gap-3 items-center">
       {navItems.map(({ link }, i) => {
         return (
-          <CMSLink
+          <motion.div  whileHover={{scale: 1.05, y:-4}}>
+            <CMSLink
             key={i}
             {...link}
             className={cn(
@@ -27,6 +29,8 @@ export const HeaderNav: React.FC<{ data: HeaderType; currentPath: string }> = ({
               },
             )}
           />
+          </motion.div>
+          
         )
       })}
     </nav>

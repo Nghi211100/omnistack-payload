@@ -143,3 +143,36 @@ a {
 [data-theme='light'] .block-setting {
   background-color: var(--bg-light);
 }
+
+/* Width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #6bf3ec 0%,
+    #0e78f1 50%
+  );
+
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+/* Hover effect */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #4dafaa,
+    #1944a0
+  );
+}
