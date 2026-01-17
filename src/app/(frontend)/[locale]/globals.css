@@ -114,13 +114,6 @@ html[data-theme='light'] {
   opacity: initial;
 }
 
-body{
-  overflow-x: hidden;
-  overflow-y: auto;
-  width: 100vw;
-  height: 100vh;
-}
-
 .slick-arrow {
   color: rgb(59 130 246) !important;
   &::before {

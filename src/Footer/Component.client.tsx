@@ -17,7 +17,7 @@ export function FooterClient({ data }: { data: Footer }) {
             <h2 id="footer-heading" className="sr-only">
                 Footer
             </h2>
-            <div className="container pb-10 pt-10 overflow-auto">
+            <div className="container pb-10 pt-10 overflow-hidden">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-32">
                     <motion.div
                         initial={{ y: 100, opacity: 0 }}
