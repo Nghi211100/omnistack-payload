@@ -158,8 +158,7 @@ export const settingField = ({ overrides }: { overrides?: Field[] }): Field => {
                       },
                     ],
                     admin: {
-                      condition: (_, siblingData) =>
-                        siblingData.bgSize !== 'cover' && siblingData.bgType === 'image',
+                      condition: (_, siblingData) => siblingData.bgType === 'image',
                       width: '50%',
                       description:
                         'Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.',
