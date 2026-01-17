@@ -23,9 +23,11 @@ export function FooterClient({ data }: { data: Footer }) {
                         initial={{ y: 100, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.5, ease: 'easeInOut' }}>
-                        <Link href={'/'}>
-                            <Logo />
-                        </Link>
+                        <div
+                            className="flex flex-shrink-0 items-center"><Link href={'/'}>
+                                <Logo />
+                            </Link>
+                        </div>
                         <motion.div className="pt-5"
                             initial={{ x: -100 }}
                             whileInView={{ x: 0 }}
@@ -37,15 +39,15 @@ export function FooterClient({ data }: { data: Footer }) {
                         </motion.div>
                     </motion.div>
                     <motion.div
-                    initial={{x:200, opacity: 0}} 
-                    whileInView={{x:0, opacity: 1}}
-                    transition={{ duration: 0.5, ease: 'easeInOut' }}
-                    className="mt-12 grid lg:grid-cols-2 grid-cols-2 lg:col-span-1 lg:mt-0 gap-6">
+                        initial={{ x: 200, opacity: 0 }}
+                        whileInView={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.5, ease: 'easeInOut' }}
+                        className="mt-12 grid lg:grid-cols-2 grid-cols-2 lg:col-span-1 lg:mt-0 gap-6">
                         {data.columns?.map((column) => (
                             <motion.div key={column.id}
-                            initial={{y:-100, scale: 0.1}} 
-                            whileInView={{y:0, scale: 1}}
-                            transition={{ duration: 0.5, ease: 'easeInOut' }}
+                                initial={{ y: -100, scale: 0.1 }}
+                                whileInView={{ y: 0, scale: 1 }}
+                                transition={{ duration: 0.5, ease: 'easeInOut' }}
                             >
                                 <div className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-50">
                                     {column.label}
