@@ -42,7 +42,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ link, media, richText }
             fill="url(#0787a7c5-978c-4f66-83c7-11c213f99cb7)"
           />
         </svg>
-        <div className="mx-auto max-w-7xl px-6 pb-20 sm:py-24 lg:flex lg:px-8 text-left">
+        <div className="mx-auto max-w-7xl px-6 py-16 pb-20 sm:py-24 lg:flex lg:px-8 text-left">
           <motion.div
             initial={{
               x: -100,
