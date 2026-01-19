@@ -1,0 +1,45 @@
+'use client'
+import { useParams, useSearchParams } from 'next/navigation'
+import React, { useTransition } from 'react'
+import localization from '@/i18n/localization'
+import { TypedLocale } from 'payload'
+import { usePathname, useRouter } from '@/i18n/routing'
+import { cn } from '@/utilities/ui'
+import { motion } from 'motion/react'
+
+export const LocaleSwitcher = () => {
+  const router = useRouter()
+  const [, startTransition] = useTransition()
+  const pathname = usePathname()
+  const params = useParams()
+  const searchParams = useSearchParams()
+  const query = Object.fromEntries(searchParams.entries())
+
+  function onSelectChange(value: TypedLocale) {
+    startTransition(() => {
+      router.replace({ pathname, query }, { locale: value, scroll: false })
+    })
+  }
+
+  return (
+    <div className="my-auto">
+      {localization.locales
+        .sort((a, b) => a.code.localeCompare(b.code))
+        .map((i) => (
+          <motion.button
+            whileHover={{scale: 1.05, y:-3}}
+            type="button"
+            className={cn(
+              params.locale === i.code && 'pointer-events-none text-blue-500',
+              'text-sm hover:scale-105 uppercase px-2',
+              'first-of-type:border-blue-500 first-of-type:border-r',
+            )}
+            onClick={() => onSelectChange(i.code as TypedLocale)}
+            key={i.code}
+          >
+            {i.code}
+          </motion.button>
+        ))}
+    </div>
+  )
+}
