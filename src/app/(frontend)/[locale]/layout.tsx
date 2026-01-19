@@ -1,5 +1,6 @@
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import type { Metadata } from 'next'
-
 import { cn } from '@/utilities/ui'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
@@ -37,6 +38,8 @@ export default async function RootLayout({ children, params }: Args) {
           <NextIntlClientProvider messages={messages}>
             <Header locale={locale} />
             {children}
+            <Analytics/>
+            <SpeedInsights />
             <Footer locale={locale} />
           </NextIntlClientProvider>
         </Providers>
