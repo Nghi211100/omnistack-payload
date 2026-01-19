@@ -30,6 +30,10 @@ export const settingField = ({ overrides }: { overrides?: Field[] }): Field => {
                     value: 'color',
                   },
                   {
+                    label: 'Gradient',
+                    value: 'gradient'
+                  },
+                  {
                     label: 'Transparent',
                     value: 'transparent',
                   },
@@ -38,6 +42,17 @@ export const settingField = ({ overrides }: { overrides?: Field[] }): Field => {
                   width: '100%',
                   description:
                     'Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.',
+                },
+              },
+              {
+                name: 'bgGradient',
+                label: 'Gradient',
+                type: 'text',
+                admin: {
+                  condition: (_, siblingData) => siblingData.bgType === 'gradient',
+                  width: '50%',
+                  description:
+                    'Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.',
                 },
               },
               {
@@ -51,7 +66,7 @@ export const settingField = ({ overrides }: { overrides?: Field[] }): Field => {
                       condition: (_, siblingData) => siblingData.bgType === 'color',
                       width: '50%',
                       description:
-                        'Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.',
+                        'Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.',
                     },
                   },
                   {
@@ -62,7 +77,7 @@ export const settingField = ({ overrides }: { overrides?: Field[] }): Field => {
                       condition: (_, siblingData) => siblingData.bgType === 'color',
                       width: '50%',
                       description:
-                        'Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.',
+                        'Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.',
                     },
                   },
                 ],

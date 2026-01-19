@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import dynamic from 'next/dynamic'
 import type { Page } from '@/payload-types'
-
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
