@@ -7,7 +7,7 @@ export default function Portfolio({ portfolio }: { portfolio?: PortfolioType }) 
   const category = portfolio?.categories as Category
 
   return (
-    <div className="dark:border-[#1e4976] overflow-hidden rounded-xl dark:border shadow-lg dark:shadow-[inset_0px_-1px_1px_#132f4c]">
+    <div className="dark:border-[#1e4976] overflow-hidden rounded-xl dark:border shadow-lg dark:shadow-[inset_0px_-1px_1px_#132f4c] h-full">
       <div className="flex-shrink-0">
         <Media imgClassName="h-48 w-full object-cover" resource={portfolio?.image} />
       </div>
