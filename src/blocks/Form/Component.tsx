@@ -22,7 +22,7 @@ export type FormBlockType = FormBlockProps & {
   introContent?: DefaultTypedEditorState
 }
 
-export const FormBlock: React.FC<
+const FormBlock: React.FC<
   {
     id?: string
     className?: string
@@ -170,3 +170,5 @@ export const FormBlock: React.FC<
     </div>
   )
 }
+
+export default FormBlock

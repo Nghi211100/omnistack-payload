@@ -1,15 +1,20 @@
 import React, { Fragment } from 'react'
-
+import dynamic from 'next/dynamic'
 import type { Page } from '@/payload-types'
 
-import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
-import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MediaContent } from './MediaContentBlock/Component'
-import MapsBlock from './MapsBlock/Component'
 import { FeatureBlock } from './FeatureBlock/Component'
+import { SkeletonForm } from './Form/SkeletonForm'
+
+
+export const ArchiveBlock = dynamic(() => import('@/blocks/ArchiveBlock/Component'))
+const FormBlock = dynamic( () => import('@/blocks/Form/Component'), { loading: () => <SkeletonForm /> } )
+export const MapsBlock = dynamic(
+  () => import('./MapsBlock/Component')
+)
 
 const blockComponents = {
   archive: ArchiveBlock,

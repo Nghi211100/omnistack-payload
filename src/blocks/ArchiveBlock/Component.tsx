@@ -19,7 +19,7 @@ import PortfolioArchive from '@/components/PortfoliosAchive'
 import { cookies } from 'next/headers'
 import { blockSettingStyle } from '@/utilities/blockSettingStyle'
 
-export const ArchiveBlock: React.FC<
+const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
     id?: string
   }
@@ -180,3 +180,5 @@ export const ArchiveBlock: React.FC<
     </div>
   )
 }
+
+export default ArchiveBlock
