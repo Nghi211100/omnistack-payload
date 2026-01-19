@@ -161,7 +161,7 @@ const ArchiveBlock: React.FC<
       case 'services':
         return <ServicesArchive services={services} />
       case 'reviews':
-        return <ReviewsArchive reviews={reviews} />
+        return <ReviewsArchive reviews={reviews} isBgCustom={settings?.bgType !== 'transparent'}/>
       case 'portfolios':
         return <PortfolioArchive categories={categoriesData} portfolios={portfolios} />
       default:

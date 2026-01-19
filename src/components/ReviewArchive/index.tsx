@@ -3,12 +3,11 @@
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { Media } from '../Media'
 import { Review } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import ReviewCard from './ReviewCard'
 
-const ReviewsArchive = ({ reviews }: { reviews: Review[] }) => {
+const ReviewsArchive = ({ reviews, isBgCustom }: { reviews: Review[], isBgCustom?: boolean }) => {
   const settingsDesk = {
     dots: false,
     infinite: true,
@@ -31,7 +30,7 @@ const ReviewsArchive = ({ reviews }: { reviews: Review[] }) => {
   }
 
   return (
-    <section className="bg-[linear-gradient(85deg,#0e3a68_20%,#158eb1_100%)]">
+    <section className={cn({'bg-[linear-gradient(85deg,#0e3a68_20%,#158eb1_100%)]': !isBgCustom})}>
       <div className="container">
         <Slider {...settingsDesk} className="h-full md:!block !hidden">
           {reviews.map((review) => (
