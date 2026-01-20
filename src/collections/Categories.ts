@@ -21,6 +21,15 @@ export const Categories: CollectionConfig = {
       required: true,
       localized: true,
     },
+    {
+      name:'type',
+      type: 'select',
+      defaultValue: 'service',
+      options: [
+        {label: 'Blog', value: 'blog'},
+        {label: 'Service', value: 'service'}
+      ]
+    },
     slugField({
       position: undefined,
     }),

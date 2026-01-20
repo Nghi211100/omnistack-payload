@@ -7,10 +7,11 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MediaContent } from './MediaContentBlock/Component'
 import { FeatureBlock } from './FeatureBlock/Component'
 import { SkeletonForm } from './Form/SkeletonForm'
+import { cn } from '@/utilities/ui'
 
 
 export const ArchiveBlock = dynamic(() => import('@/blocks/ArchiveBlock/Component'))
-const FormBlock = dynamic( () => import('@/blocks/Form/Component'), { loading: () => <SkeletonForm /> } )
+const FormBlock = dynamic(() => import('@/blocks/Form/Component'), { loading: () => <SkeletonForm /> })
 export const MapsBlock = dynamic(
   () => import('./MapsBlock/Component')
 )
@@ -44,10 +45,10 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <Fragment key={block.id}>
+                <div key={block.id} className={cn({ 'overflow-hidden': blockType !== 'archive' })}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
-                </Fragment>
+                </div>
               )
             }
           }

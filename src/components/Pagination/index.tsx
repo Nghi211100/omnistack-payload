@@ -16,13 +16,14 @@ export const Pagination: React.FC<{
   className?: string
   page: number
   totalPages: number
+  position?: 'left' | 'center' | 'right'
 }> = (props) => {
   const router = useRouter()
   const params = useParams();
-  
+
   const locale = params.locale;
 
-  const { className, page, totalPages } = props
+  const { className, page, totalPages, position = 'center' } = props
   const hasNextPage = page < totalPages
   const hasPrevPage = page > 1
 
@@ -30,7 +31,11 @@ export const Pagination: React.FC<{
   const hasExtraNextPages = page + 1 < totalPages
 
   return (
-    <div className={cn('my-12', className)}>
+    <div className={cn('my-12 w-max',
+      { 'mr-auto': position === 'left' },
+      { 'ml-auto': position === 'right' },
+      { 'mr-center': position === 'center' },
+      className)}>
       <PaginationComponent>
         <PaginationContent>
           <PaginationItem>

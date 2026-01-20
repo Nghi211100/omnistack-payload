@@ -21,7 +21,7 @@ type Args = {
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { locale = 'en'} = await paramsPromise;
+  const { locale = 'en' } = await paramsPromise;
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
@@ -35,6 +35,8 @@ export default async function Page({ params: paramsPromise }: Args) {
       slug: true,
       categories: true,
       meta: true,
+      authors: true,
+      publishedAt: true
     },
   })
 
@@ -43,34 +45,41 @@ export default async function Page({ params: paramsPromise }: Args) {
     locale: locale,
   })
 
-  return (
-    <div className="pt-16 overflow-hidden">
-      <PageClient />
-      {
-        page?.hero ? <RenderHero {...page?.hero} /> : (
-          <div className="container mb-16">
-            <div className="prose dark:prose-invert max-w-none">
-              <h1>Blog</h1>
-            </div>
-          </div>
-        )
+  const categories = await payload.find({
+    collection: 'categories',
+    depth: 1,
+    limit: 9,
+    locale,
+    overrideAccess: false,
+    where: {
+      type: {
+        equals: 'blog'
       }
-      
+    }
+  })
 
-      <div className="container mb-8">
+  return (
+    <div className="pt-16">
+      <PageClient />
+      {page?.hero && <RenderHero {...page?.hero} />}
+
+      {/* 
+      <div className="container my-12">
         <PageRange
           collection="posts"
           currentPage={posts.page}
           limit={9}
           totalDocs={posts.totalDocs}
         />
+      </div> */}
+
+      <div className='my-12'>
+        <PostsArchive posts={posts.docs} isBlogPage categories={categories.docs} />
       </div>
 
-      <PostsArchive posts={posts.docs} />
-
-      <div className="container">
+      <div className="container my-12">
         {posts.totalPages > 1 && posts.page && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+          <Pagination page={posts.page} totalPages={posts.totalPages} position='right' />
         )}
       </div>
       {page?.layout && <RenderBlocks blocks={page?.layout} />}
@@ -78,7 +87,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   )
 }
 
-export async function generateMetadata({params: paramsPromise}: Args): Promise<Metadata> {
+export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { locale = 'en' } = await paramsPromise
   const page = await queryPageBySlug({
     slug: 'blog',

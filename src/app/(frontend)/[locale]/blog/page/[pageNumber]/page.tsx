@@ -50,7 +50,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       
       {
         page?.hero ? <RenderHero {...page?.hero} /> : (
-          <div className="container mb-16">
+          <div className="container my-12">
             <div className="prose dark:prose-invert max-w-none">
               <h1>Blog</h1>
             </div>
@@ -58,7 +58,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         )
       }
 
-      <div className="container mb-8">
+      <div className="container my-12">
         <PageRange
           collection="posts"
           currentPage={posts.page}
@@ -67,9 +67,9 @@ export default async function Page({ params: paramsPromise }: Args) {
         />
       </div>
 
-      <PostsArchive posts={posts.docs} />
-
-      <div className="container">
+      <div className='my-12'><PostsArchive posts={posts.docs} /></div>
+      
+      <div className="container my-12">
         {posts?.page && posts?.totalPages > 1 && (
           <Pagination page={posts.page} totalPages={posts.totalPages} />
         )}

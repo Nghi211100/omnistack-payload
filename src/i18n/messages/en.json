@@ -6,12 +6,18 @@
   "hide": "Hide",
   "loadMore": "Load more",
   "posts": {
-    "author": "Author"
+    "author": "Author",
+    "publishedAt": "Published at",
+    "slogan": "Writing about technology and the work behind it.",
+    "latest": "Latest"
   },
   "post": {
     "datePublished": "Date Published"
   },
   "previous": "Previous",
   "more_pages": "More pages",
-  "next": "Next"
+  "next": "Next",
+  "page-not-found": "This page could not be found.",
+  "go_home": "Go home",
+  "no_data": "Search produced no results."
 }
