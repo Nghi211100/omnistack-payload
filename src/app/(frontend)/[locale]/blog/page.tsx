@@ -42,14 +42,12 @@ export default async function Page({ params: paramsPromise }: Args) {
     slug: 'blog',
     locale: locale,
   })
-  
-  const { hero, layout } = page
 
   return (
     <div className="pt-16 overflow-hidden">
       <PageClient />
       {
-        hero ? <RenderHero {...hero} /> : (
+        page?.hero ? <RenderHero {...page?.hero} /> : (
           <div className="container mb-16">
             <div className="prose dark:prose-invert max-w-none">
               <h1>Blog</h1>
@@ -75,7 +73,7 @@ export default async function Page({ params: paramsPromise }: Args) {
           <Pagination page={posts.page} totalPages={posts.totalPages} />
         )}
       </div>
-      {layout && <RenderBlocks blocks={layout} />}
+      {page?.layout && <RenderBlocks blocks={page?.layout} />}
     </div>
   )
 }
