@@ -17,7 +17,7 @@ export async function GET() {
         priority: 1.0,
       },
       {
-        loc: `${protocol}://${host}/posts-sitemap.xml`,
+        loc: `${protocol}://${host}/blog-sitemap.xml`,
         lastmod: new Date().toISOString(),
         changefreq: 'daily',
         priority: 0.8,

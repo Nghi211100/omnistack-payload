@@ -1,11 +1,7 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, TypedLocale } from 'payload'
 
 import {
   BlocksFeature,
-  FixedToolbarFeature,
-  HeadingFeature,
-  HorizontalRuleFeature,
-  InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
@@ -26,9 +22,17 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from 'payload'
+import { MediaContentBlock } from '@/blocks/MediaContentBlock/config'
+import { MapsBlock } from '@/blocks/MapsBlock/config'
+import { FormBlock } from '@/blocks/Form/config'
+import { Content } from '@/blocks/Content/config'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
+  labels:  {
+    plural: 'Blog',
+    singular: 'Blog'
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -50,15 +54,17 @@ export const Posts: CollectionConfig<'posts'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, req }) =>
+      url: ({ data, req, locale }) =>
         generatePreviewPath({
+          locale: locale.code as TypedLocale,
           slug: data?.slug,
           collection: 'posts',
           req,
-        }),
+        })    
     },
-    preview: (data, { req }) =>
+    preview: (data, { req, locale }) =>
       generatePreviewPath({
+        locale: locale as TypedLocale,
         slug: data?.slug as string,
         collection: 'posts',
         req,
@@ -88,7 +94,7 @@ export const Posts: CollectionConfig<'posts'> = {
               type: 'richText',
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
-                  return [...rootFeatures, BlocksFeature({ blocks: [Banner, Code, MediaBlock] })]
+                  return [...rootFeatures, BlocksFeature({ blocks: [Banner, Code, MediaBlock, MediaContentBlock, MapsBlock, FormBlock, Content] })]
                 },
               }),
               label: false,

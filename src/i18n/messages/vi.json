@@ -4,5 +4,14 @@
     "filter": "Lọc"
   },
   "hide": "Ẩn",
-  "loadMore": "Xem thêm"
+  "loadMore": "Xem thêm",
+  "posts": {
+    "author": "Tác Giả"
+  },
+  "post": {
+    "datePublished": "Ngày Đăng"
+  },
+  "previous": "Trước",
+  "more_pages": "Thêm trang",
+  "next": "Kế tiếp"
 }

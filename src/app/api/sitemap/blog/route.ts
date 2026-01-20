@@ -22,12 +22,12 @@ export async function GET(request: NextRequest) {
 `
 
     sitemapXml += `  <url>
-    <loc>${origin}/en/post</loc>
+    <loc>${origin}/en/blog</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${origin}/vi/post</loc>
+    <loc>${origin}/vi/blog</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
         page++
 
         if (page > 10) {
-          console.warn(`[sitemap/posts] Safety limit reached for locale ${locale}`)
+          console.warn(`[sitemap/blog] Safety limit reached for locale ${locale}`)
           break
         }
       }
@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
     // EN as canonical source
     postsByLocale.en.forEach((updatedAt, slug) => {
       sitemapXml += `  <url>
-    <loc>${origin}/en/post/${slug}</loc>
+    <loc>${origin}/en/blog/${slug}</loc>
     <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
     // VI as canonical source
     postsByLocale.vi.forEach((updatedAt, slug) => {
       sitemapXml += `  <url>
-    <loc>${origin}/vi/post/${slug}</loc>
+    <loc>${origin}/vi/blog/${slug}</loc>
     <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

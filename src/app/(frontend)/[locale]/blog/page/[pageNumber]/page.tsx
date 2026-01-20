@@ -4,21 +4,26 @@ import { PostsArchive } from '@/components/PostsArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getPayload, TypedLocale } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 import { notFound } from 'next/navigation'
+import { queryPageBySlug } from '../../../[slug]/page'
+import { generateMeta } from '@/utilities/generateMeta'
+import { RenderHero } from '@/heros/RenderHero'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
 
 export const revalidate = 600
 
 type Args = {
   params: Promise<{
     pageNumber: string
+    locale: TypedLocale
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { pageNumber } = await paramsPromise
+  const { pageNumber, locale = 'en' } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
 
   const sanitizedPageNumber = Number(pageNumber)
@@ -28,25 +33,39 @@ export default async function Page({ params: paramsPromise }: Args) {
   const posts = await payload.find({
     collection: 'posts',
     depth: 1,
-    limit: 12,
+    limit: 9,
+    locale,
     page: sanitizedPageNumber,
     overrideAccess: false,
   })
 
+  const page = await queryPageBySlug({
+    slug: 'blog',
+    locale: locale,
+  })
+
+  const {hero, layout} = page
+
+
   return (
-    <div className="pt-24 pb-24">
+    <div className="pt-16 overflow-hidden">
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
-        </div>
-      </div>
+      
+      {
+        hero ? <RenderHero {...hero} /> : (
+          <div className="container mb-16">
+            <div className="prose dark:prose-invert max-w-none">
+              <h1>Blog</h1>
+            </div>
+          </div>
+        )
+      }
 
       <div className="container mb-8">
         <PageRange
           collection="posts"
           currentPage={posts.page}
-          limit={12}
+          limit={9}
           totalDocs={posts.totalDocs}
         />
       </div>
@@ -58,15 +77,20 @@ export default async function Page({ params: paramsPromise }: Args) {
           <Pagination page={posts.page} totalPages={posts.totalPages} />
         )}
       </div>
+
+      {layout && <RenderBlocks blocks={layout} />}
     </div>
   )
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { pageNumber } = await paramsPromise
-  return {
-    title: `Omnistack Website Posts Page ${pageNumber || ''}`,
-  }
+  const { locale = 'en' } = await paramsPromise
+  const page = await queryPageBySlug({
+    slug: 'blog',
+    locale: locale,
+  })
+
+  return generateMeta({ doc: page, locale })
 }
 
 export async function generateStaticParams() {

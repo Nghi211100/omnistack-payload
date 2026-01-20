@@ -4,6 +4,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
 import * as React from 'react'
+import { useTranslations } from 'next-intl'
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -25,47 +26,52 @@ const PaginationItem: React.FC<
 > = ({ className, ref, ...props }) => <li className={cn('', className)} ref={ref} {...props} />
 
 type PaginationLinkProps = {
-  isActive?: boolean
+  isActive?: boolean, isRedirect?: boolean
 } & Pick<ButtonProps, 'size'> &
   React.ComponentProps<'button'>
 
-const PaginationLink = ({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) => (
+const PaginationLink = ({ className, isActive, isRedirect = false, size = 'icon', ...props }: PaginationLinkProps) => {
+  return (
+  
   <button
     aria-current={isActive ? 'page' : undefined}
     className={cn(
       buttonVariants({
         size,
-        variant: isActive ? 'outline' : 'ghost',
+        variant: isActive ? 'default' : isRedirect ? 'ghost' : 'outline',
       }),
+      isActive? 'text-white': 'text-black',
       className,
     )}
     {...props}
   />
-)
+)}
 
 const PaginationPrevious = ({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
+    isRedirect
     aria-label="Go to previous page"
     className={cn('gap-1 pl-2.5', className)}
     size="default"
     {...props}
   >
     <ChevronLeft className="h-4 w-4" />
-    <span>Previous</span>
+    <span>{useTranslations()('previous')}</span>
   </PaginationLink>
 )
 
 const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
+    isRedirect    
     aria-label="Go to next page"
     className={cn('gap-1 pr-2.5', className)}
     size="default"
     {...props}
   >
-    <span>Next</span>
+    <span>{useTranslations()('next')}</span>
     <ChevronRight className="h-4 w-4" />
   </PaginationLink>
 )
@@ -77,7 +83,7 @@ const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'
     {...props}
   >
     <MoreHorizontal className="h-4 w-4" />
-    <span className="sr-only">More pages</span>
+    <span className="sr-only">{useTranslations()('more_pages')}</span>
   </span>
 )
 

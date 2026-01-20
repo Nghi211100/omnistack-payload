@@ -4,5 +4,14 @@
     "filter": "Filter"
   },
   "hide": "Hide",
-  "loadMore": "Load more"
+  "loadMore": "Load more",
+  "posts": {
+    "author": "Author"
+  },
+  "post": {
+    "datePublished": "Date Published"
+  },
+  "previous": "Previous",
+  "more_pages": "More pages",
+  "next": "Next"
 }

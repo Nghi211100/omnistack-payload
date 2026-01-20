@@ -48,8 +48,8 @@ const nextConfig = {
         destination: '/api/sitemap/pages',
       },
       {
-        source: '/posts-sitemap.xml',
-        destination: '/api/sitemap/posts',
+        source: '/blog-sitemap.xml',
+        destination: '/api/sitemap/blog',
       },
     ]
   },

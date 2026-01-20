@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, TypedLocale } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
@@ -42,18 +42,20 @@ export const Pages: CollectionConfig<'pages'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, req }) =>
+      url: ({ data, req, locale }) =>
         generatePreviewPath({
           slug: data?.slug,
           collection: 'pages',
           req,
+          locale: locale.code as TypedLocale
         }),
     },
-    preview: (data, { req }) =>
+    preview: (data, { req, locale }) =>
       generatePreviewPath({
         slug: data?.slug as string,
         collection: 'pages',
         req,
+        locale: locale as TypedLocale
       }),
     useAsTitle: 'title',
   },
@@ -85,7 +87,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 MediaContentBlock,
                 MapsBlock,
               ],
-              required: true,
               admin: {
                 initCollapsed: true,
               },

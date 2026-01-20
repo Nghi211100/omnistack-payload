@@ -13,7 +13,7 @@ export async function GET() {
   # Sitemaps
   Sitemap: ${url}/sitemap.xml
   Sitemap: ${url}/pages-sitemap.xml
-  Sitemap: ${url}/posts-sitemap.xml
+  Sitemap: ${url}/blog-sitemap.xml
   `
 
   return new NextResponse(defaultRobotContent, {
