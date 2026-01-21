@@ -43,21 +43,19 @@ export default function Combobox({ category }: { category: Category[] }) {
   const Options = (mobile?: boolean) => {
     return (
       <div
-        className={`${
-          mobile &&
+        className={`${mobile &&
           'mt-1 absolute px-3 z-10 w-full bg-white dark:bg-[#001e3c] transition-all overflow-hidden border border-gray-200 dark:border-[#183b61] shadow-lg md:border-0'
-        } ${
-          mobile
+          } ${mobile
             ? open
               ? 'h-max py-3 rounded-xl'
               : 'h-0 border-transparent dark:border-transparent'
             : 'block pt-2'
-        }`}
+          }`}
       >
         {category?.map((cate) => (
           <div className="flex gap-2 pt-2" key={cate.id}>
             <input
-              id={cate.slug}
+              id={cate.slug + '-' + mobile ? 'mobile' : 'desktop'}
               name={cate.slug}
               type="checkbox"
               className="h-4 w-4 hover:cursor-pointer rounded-md focus:[--tw-ring-offset-width:0px] focus:ring-0 border border-gray-300 outline-none bg-transparent dark:border-[#183b61] mt-[5px]"
