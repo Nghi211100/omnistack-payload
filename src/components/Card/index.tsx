@@ -10,7 +10,7 @@ import { Link } from '@/i18n/routing'
 import { formatDateTime } from '@/utilities/formatDateTime'
 import { useTranslations } from 'next-intl'
 
-export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'populatedAuthors' | 'publishedAt'>
+export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'populatedAuthors' | 'publishedAt' | 'updatedAt'>
 
 export const Card: React.FC<{
   alignItems?: 'center'
@@ -25,7 +25,7 @@ export const Card: React.FC<{
   const { card } = useClickableCard({})
   const { className, doc, relationTo, showCategories, title: titleFromProps } = props
 
-  const { slug, categories, meta, title, populatedAuthors, publishedAt } = doc || {}
+  const { slug, categories, meta, title, populatedAuthors, publishedAt, updatedAt } = doc || {}
   const { description, image: metaImage } = meta || {}
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
@@ -77,13 +77,23 @@ export const Card: React.FC<{
           </div>
         )}
         {description && <div className="mt-2 text-[#4b5563]">{description && <p>{sanitizedDescription}</p>}</div>}
-        <div className='flex justify-between pt-4 text-sm text-[#4b5563]'>
-          {populatedAuthors && <p>
-            <span className='font-bold'>{t('posts.author')}:</span> {populatedAuthors[0].name}
-          </p>}
-          {populatedAuthors && <p>
-            <span className='font-bold'>{t('posts.publishedAt')}:</span> {formatDateTime(publishedAt as string)}
-          </p>}
+        <div className='flex justify-between pt-4 text-sm text-[#4b5563] w-full'>
+          {populatedAuthors && <div className='max-w-1/2 flex gap-2'>
+            <p className='font-bold'>{t('posts.author')}:</p>
+            <div className='space-y-2'>
+              {populatedAuthors.map((i) => <p key={i.id}>{i.name}</p>)}
+            </div>
+          </div>}
+          {populatedAuthors &&
+            <div className='text-right max-w-1/2'>
+              <p>
+                <span className='font-bold'>{t('posts.publishedAt')}:</span> {formatDateTime(publishedAt as string)}
+              </p>
+              {updatedAt !== publishedAt && <p className='pt-2'>
+                <span className='font-bold'>{t('posts.updatedAt')}:</span> {formatDateTime(updatedAt as string)}
+              </p>}
+            </div>
+          }
         </div>
 
       </div>

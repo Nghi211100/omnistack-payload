@@ -9,7 +9,8 @@
     "author": "Tác Giả",
     "publishedAt": "Ngày đăng",
     "slogan": "Chia sẻ những câu chuyện phía sau công nghệ.",
-    "latest": "Mới nhất"
+    "latest": "Mới nhất",
+    "updatedAt": "Ngày sửa"
   },
   "post": {
     "datePublished": "Ngày Đăng"

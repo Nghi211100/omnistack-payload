@@ -9,7 +9,6 @@ import React from 'react'
 const Sidebar = ({ categories }: { categories?: Category[] }) => {
     const t = useTranslations();
     const pathName = usePathname();
-    const categoryPathName = pathName.replace('/blog', '')
 
     return (
         <div className='border-[#00000014] pr-10 h-full md:border-r pb-6'>
@@ -19,10 +18,10 @@ const Sidebar = ({ categories }: { categories?: Category[] }) => {
                     <p className='text-sm text-[#4b5563] pt-2'>{t('posts.slogan')}</p>
                 </div>
                 <div className='pt-4 gap-2 flex flex-row md:flex-col'>
-                    <Link href={'/blog'} className={cn({ 'font-bold': !categoryPathName }, 'hover:font-bold')}>{t('posts.latest')}</Link>
+                    <Link href={'/blog'} className={cn({ 'font-bold': pathName === '/blog' || pathName.includes('/blog/page/') }, 'hover:font-bold')}>{t('posts.latest')}</Link>
                     {categories?.map((category) => (
                         <div key={category.id}>
-                            <Link href={`/blog/${category.slug}`} className={cn({ 'font-bold': category.slug === categoryPathName }, 'hover:font-bold')}>{category.title}</Link>
+                            <Link href={`/blog/category/${category.slug}`} className={cn({ 'font-bold': pathName.includes(category.slug) }, 'hover:font-bold')}>{category.title}</Link>
                         </div>
                     ))}
                 </div>

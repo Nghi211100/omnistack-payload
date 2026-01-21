@@ -64,7 +64,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 </div>
                 <div className="flex flex-1 items-center md:items-stretch justify-start gap-5">
                   <motion.div
-                    whileHover={{scale: 1.05, y:-3}}
+                    whileHover={{ scale: 1.05, y: -3 }}
                     className="flex flex-shrink-0 items-center">
                     <Link href="/">
                       <Logo loading="eager" priority="high" />
@@ -80,7 +80,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   <div className="md:flex hidden gap-6">
                     {data.phone && (
                       <motion.div
-                        whileHover={{scale: 1.05, y:-3}}
+                        whileHover={{ scale: 1.05, y: -3 }}
                         className="my-auto gap-1 flex text-sm md:test-base items-center">
                         <PhoneIcon className="text-black dark:text-white" width={24} height={24} />
                         <Link href={`tel:${data.phone}`}>{data.phone}</Link>
@@ -105,9 +105,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   {data.navItems?.map((item, index) => (
                     <Disclosure.Button
                       key={index}
-                      className={`${
-                        item.link.url === pathname && 'border-blue-500 border-l-2 text-blue-500'
-                      } w-full block py-2 pl-3 pr-4 text-base font-medium text-gray-500 dark:text-gray-400`}
+                      className={`${item.link.url === pathname && 'border-blue-500 border-l-2 text-blue-500'
+                        } w-full block py-2 pl-3 pr-4 text-base font-medium text-gray-500 dark:text-gray-400`}
                       onClick={() => router.push(item.link.url || '')}
                     >
                       {item.link.label}

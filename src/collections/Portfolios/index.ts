@@ -22,6 +22,10 @@ export const Portfolios: CollectionConfig = {
       localized: true,
     },
     { name: 'image', type: 'upload', relationTo: 'media' },
-    { name: 'categories', type: 'relationship', relationTo: 'categories' },
+    { name: 'categories', type: 'relationship', relationTo: 'categories', filterOptions: {
+      type: {
+        equals: 'service'
+      }
+    } },
   ],
 }
