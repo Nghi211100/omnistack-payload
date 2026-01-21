@@ -33,10 +33,11 @@ export default async function Page({ params: paramsPromise }: Args) {
   const posts = await payload.find({
     collection: 'posts',
     depth: 1,
-    limit: 9,
+    limit: 8,
     locale,
     page: sanitizedPageNumber,
     overrideAccess: false,
+    sort: '-updatedAt'
   })
 
   const page = await queryPageBySlug({
@@ -44,20 +45,25 @@ export default async function Page({ params: paramsPromise }: Args) {
     locale: locale,
   })
 
-  return (
-    <div className="pt-16 overflow-hidden">
-      <PageClient />
-      
-      {
-        page?.hero ? <RenderHero {...page?.hero} /> : (
-          <div className="container my-12">
-            <div className="prose dark:prose-invert max-w-none">
-              <h1>Blog</h1>
-            </div>
-          </div>
-        )
+  const categories = await payload.find({
+    collection: 'categories',
+    depth: 1,
+    limit: 9,
+    locale,
+    overrideAccess: false,
+    where: {
+      type: {
+        equals: 'blog'
       }
+    }
+  })
 
+  return (
+    <div className="pt-16">
+      <PageClient />
+      {page?.hero && <RenderHero {...page?.hero} />}
+
+      {/* 
       <div className="container my-12">
         <PageRange
           collection="posts"
@@ -65,16 +71,17 @@ export default async function Page({ params: paramsPromise }: Args) {
           limit={9}
           totalDocs={posts.totalDocs}
         />
+      </div> */}
+
+      <div className='my-12'>
+        <PostsArchive posts={posts.docs} isBlogPage categories={categories.docs} />
       </div>
 
-      <div className='my-12'><PostsArchive posts={posts.docs} /></div>
-      
       <div className="container my-12">
-        {posts?.page && posts?.totalPages > 1 && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+        {posts.totalPages > 1 && posts.page && (
+          <Pagination page={posts.page} totalPages={posts.totalPages} position='right' />
         )}
       </div>
-
       {page?.layout && <RenderBlocks blocks={page?.layout} />}
     </div>
   )
@@ -97,7 +104,7 @@ export async function generateStaticParams() {
     overrideAccess: false,
   })
 
-  const totalPages = Math.ceil(totalDocs / 10)
+  const totalPages = Math.ceil(totalDocs / 8)
 
   const pages: { pageNumber: string }[] = []
 

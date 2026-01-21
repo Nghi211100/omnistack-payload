@@ -130,6 +130,11 @@ export const Posts: CollectionConfig<'posts'> = {
               },
               hasMany: true,
               relationTo: 'categories',
+              filterOptions: {
+                type: {
+                  equals: 'blog'
+                }
+              }
             },
           ],
           label: 'Meta',

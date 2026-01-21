@@ -7,37 +7,41 @@ import configPromise from '@payload-config'
 import { getPayload, TypedLocale } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
-import { queryPageBySlug } from '../[slug]/page'
+import { notFound } from 'next/navigation'
+import { generateMeta } from '@/utilities/generateMeta'
 import { RenderHero } from '@/heros/RenderHero'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { generateMeta } from '@/utilities/generateMeta'
+import { queryPageBySlug } from '@/app/(frontend)/[locale]/[slug]/page'
 
 export const revalidate = 600
 
 type Args = {
   params: Promise<{
+    slug: string;
+    pageNumber: string
     locale: TypedLocale
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { locale = 'en' } = await paramsPromise;
+  const { pageNumber, locale = 'en', slug } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
+
+  const sanitizedPageNumber = Number(pageNumber)
+
+  if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
   const posts = await payload.find({
     collection: 'posts',
     depth: 1,
     limit: 8,
     locale,
+    page: sanitizedPageNumber,
     overrideAccess: false,
-    select: {
-      title: true,
-      slug: true,
-      categories: true,
-      meta: true,
-      authors: true,
-      publishedAt: true,
-      updatedAt: true,
+    where: {
+      'categories.slug': {
+        equals: slug
+      }
     },
     sort: '-updatedAt'
   })
@@ -65,16 +69,6 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       {page?.hero && <RenderHero {...page?.hero} />}
 
-      {/* 
-      <div className="container my-12">
-        <PageRange
-          collection="posts"
-          currentPage={posts.page}
-          limit={9}
-          totalDocs={posts.totalDocs}
-        />
-      </div> */}
-
       <div className='my-12'>
         <PostsArchive posts={posts.docs} isBlogPage categories={categories.docs} />
       </div>
@@ -97,4 +91,22 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   })
 
   return generateMeta({ doc: page, locale })
+}
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+  const { totalDocs } = await payload.count({
+    collection: 'posts',
+    overrideAccess: false,
+  })
+
+  const totalPages = Math.ceil(totalDocs / 8)
+
+  const pages: { pageNumber: string }[] = []
+
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push({ pageNumber: String(i) })
+  }
+
+  return pages
 }

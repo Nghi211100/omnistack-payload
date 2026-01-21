@@ -9,7 +9,8 @@
     "author": "Author",
     "publishedAt": "Published at",
     "slogan": "Writing about technology and the work behind it.",
-    "latest": "Latest"
+    "latest": "Latest",
+    "updatedAt": "Updated at"
   },
   "post": {
     "datePublished": "Date Published"
