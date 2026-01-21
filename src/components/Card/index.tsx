@@ -7,8 +7,10 @@ import type { Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { Link } from '@/i18n/routing'
+import { formatDateTime } from '@/utilities/formatDateTime'
+import { useTranslations } from 'next-intl'
 
-export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
+export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'populatedAuthors' | 'publishedAt'>
 
 export const Card: React.FC<{
   alignItems?: 'center'
@@ -16,13 +18,14 @@ export const Card: React.FC<{
   doc?: CardPostData
   relationTo?: 'blog'
   showCategories?: boolean
-  title?: string
+  title?: string;
+
 }> = (props) => {
-  
+  const t = useTranslations()
   const { card } = useClickableCard({})
   const { className, doc, relationTo, showCategories, title: titleFromProps } = props
 
-  const { slug, categories, meta, title } = doc || {}
+  const { slug, categories, meta, title, populatedAuthors, publishedAt } = doc || {}
   const { description, image: metaImage } = meta || {}
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
@@ -33,18 +36,17 @@ export const Card: React.FC<{
   return (
     <article
       className={cn(
-        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
         className,
       )}
       ref={card.ref}
     >
-      <div className="relative w-full ">
+      <div className="relative w-full border border-[#00000014] rounded-[0.375rem] overflow-hidden">
         {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
+        {metaImage && typeof metaImage !== 'string' && <Link href={href}><Media resource={metaImage} imgClassName='aspect-[1200/630]' /></Link>}
       </div>
-      <div className="p-4">
+      <div className="py-4">
         {showCategories && hasCategories && (
-          <div className="uppercase text-sm mb-4">
+          <div className="text-sm mb-2 text-[#4b5563]">
             {showCategories && hasCategories && (
               <div>
                 {categories?.map((category, index) => {
@@ -56,10 +58,10 @@ export const Card: React.FC<{
                     const isLast = index === categories.length - 1
 
                     return (
-                      <Fragment key={index}>
+                      <Link key={index} href={`/blog/${category.slug}`}>
                         {categoryTitle}
                         {!isLast && <Fragment>, &nbsp;</Fragment>}
-                      </Fragment>
+                      </Link>
                     )
                   }
 
@@ -70,11 +72,20 @@ export const Card: React.FC<{
           </div>
         )}
         {titleToUse && (
-            <h3>
-              <Link href={href}>{titleToUse}</Link>
-            </h3>
+          <div className='font-bold text-2xl'>
+            <Link href={href}>{titleToUse}</Link>
+          </div>
         )}
-        {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>}
+        {description && <div className="mt-2 text-[#4b5563]">{description && <p>{sanitizedDescription}</p>}</div>}
+        <div className='flex justify-between pt-4 text-sm text-[#4b5563]'>
+          {populatedAuthors && <p>
+            <span className='font-bold'>{t('posts.author')}:</span> {populatedAuthors[0].name}
+          </p>}
+          {populatedAuthors && <p>
+            <span className='font-bold'>{t('posts.publishedAt')}:</span> {formatDateTime(publishedAt as string)}
+          </p>}
+        </div>
+
       </div>
     </article>
   )
