@@ -58,7 +58,7 @@ export const Card: React.FC<{
                     const isLast = index === categories.length - 1
 
                     return (
-                      <Link key={index} href={`/blog/${category.slug}`}>
+                      <Link key={index} href={`/blog/category/${category.slug}`}>
                         {categoryTitle}
                         {!isLast && <Fragment>, &nbsp;</Fragment>}
                       </Link>
