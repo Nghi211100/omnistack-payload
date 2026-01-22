@@ -16,7 +16,6 @@ import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { queryAdjacentPosts, queryPostBySlug } from '@/_data'
 import { Link } from '@/i18n/routing'
-import { cn } from '@/utilities/ui'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })

@@ -20,7 +20,7 @@ export const PostHero: React.FC<{
   return (
     <div className="relative flex-col items-end">
       <div className="pb-2 relative">
-        <div className='absolute -top-2 md:top-6 left-0 text-[#4b5563] font-medium hover:font-bold'><Link href={'/blog'}>{'<<  Blog'}</Link></div>
+        <div className='absolute -top-2 lg:top-6 left-0 lg:-left-16 xl:left-0 text-[#4b5563] font-medium hover:font-bold'><Link href={'/blog'}>{'<<  Blog'}</Link></div>
         <div className="max-w-[56rem] mx-auto pt-6">
           <div className="uppercase text-sm md:text-base mb-2 font-semibold text-primary">
             {categories?.map((category, index) => {
