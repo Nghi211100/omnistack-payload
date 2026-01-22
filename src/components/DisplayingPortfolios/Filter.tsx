@@ -1,3 +1,5 @@
+'use client'
+
 import { useRouter } from '@/i18n/routing'
 import { Category } from '@/payload-types'
 import { ChevronDownIcon, ChevronUpIcon, FunnelIcon } from '@heroicons/react/24/outline'
@@ -5,14 +7,14 @@ import { useTranslations } from 'next-intl'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 
-export default function Combobox({ category }: { category: Category[] }) {
+export default function Filter({ categories }: { categories: Category[] }) {
   const t = useTranslations()
   const [open, setOpen] = useState(false)
 
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const cateQuery = searchParams.get('cate')
+  const cateQuery = searchParams.get('category')
 
   const handleChange = (cateName: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -24,16 +26,16 @@ export default function Combobox({ category }: { category: Category[] }) {
         // remove
         const next = list.filter((c) => c !== cateName)
         if (next.length === 0) {
-          params.delete('cate')
+          params.delete('category')
         } else {
-          params.set('cate', next.join(','))
+          params.set('category', next.join(','))
         }
       } else {
         // add
-        params.set('cate', [...list, cateName].join(','))
+        params.set('category', [...list, cateName].join(','))
       }
     } else {
-      params.set('cate', cateName)
+      params.set('category', cateName)
     }
     const query = Object.fromEntries(params.entries())
 
@@ -52,21 +54,21 @@ export default function Combobox({ category }: { category: Category[] }) {
             : 'block pt-2'
           }`}
       >
-        {category?.map((cate) => (
-          <div className="flex gap-2 pt-2" key={cate.id}>
+        {categories?.map((category) => (
+          <div className="flex gap-2 pt-2" key={category.id}>
             <input
-              id={cate.slug + '-' + mobile ? 'mobile' : 'desktop'}
-              name={cate.slug}
+              id={category.slug + '-' + mobile ? 'mobile' : 'desktop'}
+              name={category.slug}
               type="checkbox"
               className="h-4 w-4 hover:cursor-pointer rounded-md focus:[--tw-ring-offset-width:0px] focus:ring-0 border border-gray-300 outline-none bg-transparent dark:border-[#183b61] mt-[5px]"
-              onChange={() => handleChange(cate.slug)}
-              checked={cateQuery?.includes(cate.slug) || false}
+              onChange={() => handleChange(category.slug)}
+              checked={cateQuery?.includes(category.slug) || false}
             />
             <label
-              htmlFor={cate.slug}
+              htmlFor={category.slug + '-' + mobile ? 'mobile' : 'desktop'}
               className="font-medium text-black dark:text-white hover:cursor-pointer"
             >
-              {cate.title}
+              {category.title}
             </label>
           </div>
         ))}
