@@ -13,11 +13,11 @@ const heroes = {
 }
 
 export const RenderHero: React.FC<Page['hero']> = (props) => {
-  const { type } = props || {}
+  const { settings } = props || {}
 
-  if (!type || type === 'none') return null
+  if (!settings.type || settings.type === 'none') return null
 
-  const HeroToRender = heroes[type]
+  const HeroToRender = heroes[settings.type]
 
   if (!HeroToRender) return null
 

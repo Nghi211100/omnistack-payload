@@ -1,51 +1,43 @@
 import type { Field } from 'payload'
-
 import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-
-import { linkGroup } from '@/fields/linkGroup'
-import {
-  TextColorFeature,
-  TextFontFamilyFeature,
-  TextLineHeightFeature,
-  TextLetterSpacingFeature,
-  TextSizeFeature,
-} from 'payload-lexical-typography'
 import { link } from '@/fields/link'
+import { settingField } from '@/fields/setting'
 
 export const hero: Field = {
   name: 'hero',
   type: 'group',
   fields: [
-    {
-      name: 'type',
-      type: 'select',
-      defaultValue: 'lowImpact',
-      label: 'Type',
-      options: [
+    settingField({
+      overrides: [
         {
-          label: 'None',
-          value: 'none',
+          name: 'type',
+          type: 'select',
+          defaultValue: 'lowImpact',
+          label: 'Type',
+          options: [
+            {
+              label: 'None',
+              value: 'none',
+            },
+            {
+              label: 'High Impact',
+              value: 'highImpact',
+            },
+            {
+              label: 'Medium Impact',
+              value: 'mediumImpact',
+            },
+            {
+              label: 'Low Impact',
+              value: 'lowImpact',
+            },
+          ],
+          required: true,
         },
-        {
-          label: 'High Impact',
-          value: 'highImpact',
-        },
-        {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
-        },
-        {
-          label: 'Low Impact',
-          value: 'lowImpact',
-        },
-      ],
-      required: true,
-    },
+      ]
+    }),
     {
       name: 'richText',
       type: 'richText',
@@ -61,13 +53,16 @@ export const hero: Field = {
       overrides: {
         localized: true,
         required: false,
+        admin: {
+          condition: (_, siblingData) => ['highImpact', 'mediumImpact'].includes(siblingData.settings.type),
+        }
       },
     }),
     {
       name: 'media',
       type: 'upload',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, siblingData) => ['highImpact'].includes(siblingData.settings.type),
       },
       relationTo: 'media',
       required: true,
