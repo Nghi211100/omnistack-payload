@@ -5,31 +5,15 @@ import type { Page } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import { blockSettingStyle } from '@/utilities/blockSettingStyle'
 
-export const MediumImpactHero: React.FC<Page['hero']> = ({ link, media, richText }) => {
+export const MediumImpactHero: React.FC<Page['hero']> = ({ link, media, richText, settings }) => {
   return (
-    <div className="">
-      <div className="container mb-8">
+    <div className="py-12 block-setting" style={blockSettingStyle(settings)}>
+      <div className="container">
         {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
 
         <CMSLink {...link} />
-      </div>
-      <div className="container ">
-        {media && typeof media === 'object' && (
-          <div>
-            <Media
-              className="-mx-4 md:-mx-8 2xl:-mx-16"
-              imgClassName=""
-              priority
-              resource={media}
-            />
-            {media?.caption && (
-              <div className="mt-3">
-                <RichText data={media.caption} enableGutter={false} />
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   )

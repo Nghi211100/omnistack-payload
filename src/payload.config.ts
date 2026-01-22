@@ -94,7 +94,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
-    push: process.env.NODE_ENV !== 'production',
+    push: false,
   }),
   collections: [Pages, Posts, Media, Users, Services, Reviews, Portfolios, Categories],
   cors: [getServerSideURL()].filter(Boolean),
