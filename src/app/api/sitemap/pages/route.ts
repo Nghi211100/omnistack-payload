@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
 
     pagesByLocale.en.forEach((updatedAt, slug) => {
       sitemapXml += `  <url>
-    <loc>${origin}/en/${slug}</loc>
+    <loc>${origin}/en${slug === 'home' ? '' : '/' + slug}</loc>
     <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
 
     pagesByLocale.vi.forEach((updatedAt, slug) => {
       sitemapXml += `  <url>
-    <loc>${origin}/vi/${slug}</loc>
+    <loc>${origin}/vi${slug === 'home' ? '' : '/' + slug}</loc>
     <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
