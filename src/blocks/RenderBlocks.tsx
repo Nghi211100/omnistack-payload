@@ -1,22 +1,16 @@
 import React, { Fragment } from 'react'
-import dynamic from 'next/dynamic'
 import type { Page } from '@/payload-types'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { MediaContent } from './MediaContentBlock/Component'
 import { FeatureBlock } from './FeatureBlock/Component'
-import { SkeletonForm } from './Form/SkeletonForm'
 import { cn } from '@/utilities/ui'
+import ArchiveBlock from '@/blocks/ArchiveBlock/Component'
+import FormBlock from '@/blocks/Form/Component'
+import MapsBlock from './MapsBlock/Component'
 
-
-export const ArchiveBlock = dynamic(() => import('@/blocks/ArchiveBlock/Component'))
-const FormBlock = dynamic(() => import('@/blocks/Form/Component'), { loading: () => <SkeletonForm /> })
-export const MapsBlock = dynamic(
-  () => import('./MapsBlock/Component')
-)
-
-const blockComponents = {
+const blockComponents: Record<string, React.FC<any>> = {
   archive: ArchiveBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
@@ -28,7 +22,7 @@ const blockComponents = {
 }
 
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][]
+  blocks: Page['layout']
 }> = (props) => {
   const { blocks } = props
 
@@ -46,8 +40,7 @@ export const RenderBlocks: React.FC<{
             if (Block) {
               return (
                 <div key={block.id} className={cn({ 'overflow-hidden': blockType !== 'archive' })}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
-                  <Block {...block} disableInnerContainer />
+                  <Block {...block} />
                 </div>
               )
             }
