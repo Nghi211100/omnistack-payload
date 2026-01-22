@@ -94,6 +94,69 @@ export async function GET(request: NextRequest) {
 `
     })
 
+    const categoriesByLocale: Record<string, Map<string, string>> = {
+      en: new Map(),
+      vi: new Map(),
+    }
+
+    for (const locale of LOCALES) {
+      let page = 1
+      let hasMore = true
+
+      while (hasMore) {
+        const result = await payload.find({
+          collection: 'categories',
+          where: { 
+            type: { equals: 'blog' }
+          },
+          locale,
+          limit: 500,
+          page,
+          depth: 0,
+          select: {
+            slug: true,
+            updatedAt: true,
+          },
+        })
+
+        result.docs.forEach((doc) => {
+          if (doc.slug) {
+            categoriesByLocale[locale].set(doc.slug as string, doc.updatedAt as string)
+          }
+        })
+
+        hasMore = result.hasNextPage
+        page++
+
+        if (page > 10) {
+          console.warn(`[sitemap/blog] Safety limit reached for locale ${locale}`)
+          break
+        }
+      }
+    }
+
+    // EN as canonical source
+    categoriesByLocale.en.forEach((updatedAt, slug) => {
+      sitemapXml += `  <url>
+    <loc>${origin}/en/blog/${slug}</loc>
+    <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`
+    })
+
+    // VI as canonical source
+    categoriesByLocale.vi.forEach((updatedAt, slug) => {
+      sitemapXml += `  <url>
+    <loc>${origin}/vi/blog/${slug}</loc>
+    <lastmod>${new Date(updatedAt).toISOString()}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`
+    })
+
     sitemapXml += `</urlset>`
 
     return new NextResponse(sitemapXml, {
