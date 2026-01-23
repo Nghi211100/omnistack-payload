@@ -54,7 +54,7 @@ const getPostsSitemap = unstable_cache(
         priority: 0.8
       })),
       ...allPosts.flatMap(({ updatedAt, slug }) => allLocale.map((locale) => ({
-        loc: `${originalUrl}/${locale}/${slug}`,
+        loc: `${originalUrl}/${locale}/blog/${slug}`,
         lastmod: updatedAt || dateFallback,
         changefreq: 'weekly' as const,
         priority: 0.7
