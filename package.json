@@ -11,6 +11,7 @@
     "generate:importmap": "node --loader ./scripts/ignore-style-loader.mjs --import tsx ./scripts/payload-cli.mjs generate:importmap",
     "generate:types": "node --loader ./scripts/ignore-style-loader.mjs --import tsx ./scripts/payload-cli.mjs generate:types",
     "migrate:create": "node --loader ./scripts/ignore-style-loader.mjs --import tsx ./scripts/payload-cli.mjs migrate:create",
+    "migrate:status": "node --loader ./scripts/ignore-style-loader.mjs --import tsx ./scripts/payload-cli.mjs migrate:status",
     "migrate": "node --loader ./scripts/ignore-style-loader.mjs --import tsx ./scripts/payload-cli.mjs migrate",
     "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",

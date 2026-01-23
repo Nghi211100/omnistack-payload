@@ -51,16 +51,6 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       {page?.hero && <RenderHero {...page?.hero} />}
 
-      {/* 
-      <div className="container my-12">
-        <PageRange
-          collection="posts"
-          currentPage={posts.page}
-          limit={9}
-          totalDocs={posts.totalDocs}
-        />
-      </div> */}
-
       <div className='my-12'>
         <PostsArchive posts={posts.docs} isBlogPage categories={categories.docs} />
       </div>

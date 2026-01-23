@@ -1,7 +1,6 @@
 import type { Metadata } from 'next/types'
 
 import { PostsArchive } from '@/components/PostsArchive'
-import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload, TypedLocale } from 'payload'
@@ -25,7 +24,6 @@ type Args = {
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { pageNumber, locale = 'en', slug } = await paramsPromise
-  const payload = await getPayload({ config: configPromise })
 
   const sanitizedPageNumber = Number(pageNumber)
 

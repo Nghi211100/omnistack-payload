@@ -60,16 +60,14 @@ export const queryPostsByCategorySlug = async ({ slug, locale }: { slug: string;
             slug: true,
             categories: true,
             meta: true,
-            authors: true,
             publishedAt: true,
-            updatedAt: true
         },
         where: {
             'categories.slug': {
                 equals: slug
             }
         },
-        sort: '--updatedAt'
+        sort: '-publishedAt'
     })
 
     return posts
@@ -105,11 +103,9 @@ export const queryAllPosts = async({locale}:{locale: TypedLocale})=>{
           slug: true,
           categories: true,
           meta: true,
-          authors: true,
           publishedAt: true,
-          updatedAt: true,
         },
-        sort: '-updatedAt'
+        sort: '-publishedAt'
       })
     return posts
 }
@@ -135,10 +131,10 @@ export const queryAdjacentPosts = async ({
       depth: 0, 
       where: {
         and: [
-          { updatedAt: { greater_than: currentPost.updatedAt } },
+          { publishedAt: { greater_than: currentPost.publishedAt } },
         ],
       },
-      sort: 'updatedAt',
+      sort: 'publishedAt',
       limit: 1,
     })
   
@@ -150,10 +146,10 @@ export const queryAdjacentPosts = async ({
       depth: 0, 
       where: {
         and: [
-          { updatedAt: { less_than: currentPost.updatedAt } },
+          { publishedAt: { less_than: currentPost.publishedAt } },
         ],
       },
-      sort: '-updatedAt',
+      sort: '-publishedAt',
       limit: 1,
     })
   
