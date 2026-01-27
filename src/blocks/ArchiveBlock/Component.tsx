@@ -3,7 +3,6 @@ import type {
   ArchiveBlock as ArchiveBlockProps,
   Service,
   Review,
-  Category,
   Portfolio,
 } from '@/payload-types'
 
@@ -15,9 +14,9 @@ import RichText from '@/components/RichText'
 import { PostsArchive } from '@/components/PostsArchive'
 import ServicesArchive from '@/components/ServicceArchive'
 import ReviewsArchive from '@/components/ReviewArchive'
-import PortfolioArchive from '@/components/PortfoliosAchive'
 import { cookies } from 'next/headers'
 import { blockSettingStyle } from '@/utilities/blockSettingStyle'
+import PortfolioArchive from '@/components/PortfoliosArchive'
 
 const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -43,7 +42,6 @@ const ArchiveBlock: React.FC<
   let posts: Post[] = []
   let services: Service[] = []
   let reviews: Review[] = []
-  let categoriesData: Category[] = []
   let portfolios: Portfolio[] = []
 
   if (populateBy === 'collection') {
@@ -125,24 +123,6 @@ const ArchiveBlock: React.FC<
           : {}),
       })
       portfolios = fetchedPortfolio.docs
-
-      const fetchedCategories = await payload.find({
-        collection: 'categories',
-        depth: 1,
-        locale: locale,
-        limit,
-        sort: ['slug', '-updatedAt'],
-        ...(flattenedCategories && flattenedCategories.length > 0
-          ? {
-              where: {
-                categories: {
-                  in: flattenedCategories,
-                },
-              },
-            }
-          : {}),
-      })
-      categoriesData = fetchedCategories.docs
     }
   } else {
     if (selectedDocs?.length) {
@@ -163,7 +143,7 @@ const ArchiveBlock: React.FC<
       case 'reviews':
         return <ReviewsArchive reviews={reviews} isBgCustom={settings?.bgType !== 'transparent'}/>
       case 'portfolios':
-        return <PortfolioArchive categories={categoriesData} portfolios={portfolios} />
+        return <PortfolioArchive portfolios={portfolios} />
       default:
         return null
     }

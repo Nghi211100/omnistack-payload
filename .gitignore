@@ -6,6 +6,7 @@ node_modules
 .next
 .vercel
 .vscode
+.cursor
 
 public/robots.txt
 public/sitemap*.xml

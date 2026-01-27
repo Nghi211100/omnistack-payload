@@ -1,17 +1,16 @@
 import type { Metadata } from 'next/types'
 
 import { PostsArchive } from '@/components/PostsArchive'
-import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload, TypedLocale } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 import { notFound } from 'next/navigation'
-import { queryPageBySlug } from '../../../[slug]/page'
 import { generateMeta } from '@/utilities/generateMeta'
 import { RenderHero } from '@/heros/RenderHero'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { queryCategoryByType, queryPageBySlug } from '@/_data'
 
 export const revalidate = 600
 
@@ -33,10 +32,11 @@ export default async function Page({ params: paramsPromise }: Args) {
   const posts = await payload.find({
     collection: 'posts',
     depth: 1,
-    limit: 9,
+    limit: 8,
     locale,
     page: sanitizedPageNumber,
     overrideAccess: false,
+    sort: '-updatedAt'
   })
 
   const page = await queryPageBySlug({
@@ -44,50 +44,35 @@ export default async function Page({ params: paramsPromise }: Args) {
     locale: locale,
   })
 
-  return (
-    <div className="pt-16 overflow-hidden">
-      <PageClient />
-      
-      {
-        page?.hero ? <RenderHero {...page?.hero} /> : (
-          <div className="container mb-16">
-            <div className="prose dark:prose-invert max-w-none">
-              <h1>Blog</h1>
-            </div>
-          </div>
-        )
-      }
+  const categories = await queryCategoryByType({ locale, type: 'blog' })
 
-      <div className="container mb-8">
-        <PageRange
-          collection="posts"
-          currentPage={posts.page}
-          limit={9}
-          totalDocs={posts.totalDocs}
-        />
+  return (
+    <div className="pt-16">
+      <PageClient />
+      {page?.hero && <RenderHero {...page?.hero} />}
+
+      <div className='my-12'>
+        <PostsArchive posts={posts.docs} isBlogPage categories={categories.docs} />
       </div>
 
-      <PostsArchive posts={posts.docs} />
-
-      <div className="container">
-        {posts?.page && posts?.totalPages > 1 && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+      <div className="container my-12">
+        {posts.totalPages > 1 && posts.page && (
+          <Pagination page={posts.page} totalPages={posts.totalPages} position='right' />
         )}
       </div>
-
       {page?.layout && <RenderBlocks blocks={page?.layout} />}
     </div>
   )
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { locale = 'en' } = await paramsPromise
+  const { locale = 'en', pageNumber } = await paramsPromise
   const page = await queryPageBySlug({
     slug: 'blog',
     locale: locale,
   })
 
-  return generateMeta({ doc: page, locale })
+  return generateMeta({ doc: page, locale, subPath: `page/${pageNumber}` })
 }
 
 export async function generateStaticParams() {
@@ -97,7 +82,7 @@ export async function generateStaticParams() {
     overrideAccess: false,
   })
 
-  const totalPages = Math.ceil(totalDocs / 10)
+  const totalPages = Math.ceil(totalDocs / 8)
 
   const pages: { pageNumber: string }[] = []
 

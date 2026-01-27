@@ -30,8 +30,8 @@ import { Content } from '@/blocks/Content/config'
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
   labels:  {
-    plural: 'Blog',
-    singular: 'Blog'
+    plural: 'Posts',
+    singular: 'Post'
   },
   access: {
     create: authenticated,
@@ -130,6 +130,11 @@ export const Posts: CollectionConfig<'posts'> = {
               },
               hasMany: true,
               relationTo: 'categories',
+              filterOptions: {
+                type: {
+                  equals: 'blog'
+                }
+              }
             },
           ],
           label: 'Meta',

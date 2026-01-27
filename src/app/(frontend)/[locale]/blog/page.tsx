@@ -1,16 +1,13 @@
 import type { Metadata } from 'next/types'
-
 import { PostsArchive } from '@/components/PostsArchive'
-import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
-import configPromise from '@payload-config'
-import { getPayload, TypedLocale } from 'payload'
+import { TypedLocale } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
-import { queryPageBySlug } from '../[slug]/page'
 import { RenderHero } from '@/heros/RenderHero'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { generateMeta } from '@/utilities/generateMeta'
+import { queryAllPosts, queryCategoryByType, queryPageBySlug } from '@/_data'
 
 export const revalidate = 600
 
@@ -21,56 +18,29 @@ type Args = {
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { locale = 'en'} = await paramsPromise;
-  const payload = await getPayload({ config: configPromise })
+  const { locale = 'en' } = await paramsPromise;
 
-  const posts = await payload.find({
-    collection: 'posts',
-    depth: 1,
-    limit: 9,
-    locale,
-    overrideAccess: false,
-    select: {
-      title: true,
-      slug: true,
-      categories: true,
-      meta: true,
-    },
-  })
+  const posts = await queryAllPosts({ locale })
 
   const page = await queryPageBySlug({
     slug: 'blog',
     locale: locale,
   })
 
-  return (
-    <div className="pt-16 overflow-hidden">
-      <PageClient />
-      {
-        page?.hero ? <RenderHero {...page?.hero} /> : (
-          <div className="container mb-16">
-            <div className="prose dark:prose-invert max-w-none">
-              <h1>Blog</h1>
-            </div>
-          </div>
-        )
-      }
-      
+  const categories = await queryCategoryByType({ locale, type: 'blog' })
 
-      <div className="container mb-8">
-        <PageRange
-          collection="posts"
-          currentPage={posts.page}
-          limit={9}
-          totalDocs={posts.totalDocs}
-        />
+  return (
+    <div className="pt-16">
+      <PageClient />
+      {page?.hero && <RenderHero {...page?.hero} />}
+
+      <div className='my-12'>
+        <PostsArchive posts={posts.docs} isBlogPage categories={categories.docs} />
       </div>
 
-      <PostsArchive posts={posts.docs} />
-
-      <div className="container">
+      <div className="container my-12">
         {posts.totalPages > 1 && posts.page && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+          <Pagination page={posts.page} totalPages={posts.totalPages} position='right' />
         )}
       </div>
       {page?.layout && <RenderBlocks blocks={page?.layout} />}
@@ -78,7 +48,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   )
 }
 
-export async function generateMetadata({params: paramsPromise}: Args): Promise<Metadata> {
+export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { locale = 'en' } = await paramsPromise
   const page = await queryPageBySlug({
     slug: 'blog',

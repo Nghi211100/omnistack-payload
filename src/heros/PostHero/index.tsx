@@ -6,6 +6,7 @@ import type { Post } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
 import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/routing'
 
 export const PostHero: React.FC<{
   post: Post
@@ -17,10 +18,11 @@ export const PostHero: React.FC<{
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
 
   return (
-    <div className="relative -mt-[10.4rem] flex items-end">
-      <div className="container z-10 relative lg:grid lg:grid-cols-[1fr_48rem_1fr] text-white pb-8">
-        <div className="col-start-1 col-span-1 md:col-start-2 md:col-span-2">
-          <div className="uppercase text-sm mb-6">
+    <div className="relative flex-col items-end">
+      <div className="pb-2 relative">
+        <div className='absolute -top-2 lg:top-6 left-0 lg:-left-16 xl:left-0 text-[#4b5563] font-medium hover:font-bold'><Link href={'/blog'}>{'<<  Blog'}</Link></div>
+        <div className="max-w-[56rem] mx-auto pt-6">
+          <div className="uppercase text-sm md:text-base mb-2 font-semibold text-primary">
             {categories?.map((category, index) => {
               if (typeof category === 'object' && category !== null) {
                 const { title: categoryTitle } = category
@@ -31,7 +33,7 @@ export const PostHero: React.FC<{
 
                 return (
                   <React.Fragment key={index}>
-                    {titleToUse}
+                    <Link href={`/blog/category/${category.slug}`}>{titleToUse}</Link>
                     {!isLast && <React.Fragment>, &nbsp;</React.Fragment>}
                   </React.Fragment>
                 )
@@ -40,36 +42,22 @@ export const PostHero: React.FC<{
             })}
           </div>
 
-          <div className="">
-            <h1 className="mb-6 text-3xl md:text-5xl lg:text-6xl">{title}</h1>
+          <div className="mb-10">
+            <h1 className="text-3xl lg:text-[3.375rem] lg:leading-[3.5rem] font-bold">{title}</h1>
           </div>
-
-          <div className="flex flex-col md:flex-row gap-4 md:gap-16">
+          <div className="flex flex-col md:flex-row gap-1 justify-between">
             {hasAuthors && (
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm">{t('posts.author')}</p>
-
-                  <p>{formatAuthors(populatedAuthors)}</p>
-                </div>
-              </div>
+              <p className="text-sm font-semibold">{t('posts.author')}: <span className='font-normal text-base'>{formatAuthors(populatedAuthors)}</span></p>
             )}
             {publishedAt && (
-              <div className="flex flex-col gap-1">
-                <p className="text-sm">{t("post.datePublished")}</p>
-
-                <time dateTime={publishedAt}>{formatDateTime(publishedAt)}</time>
-              </div>
+              <p className="text-sm font-semibold">{t("posts.publishedAt")}: <span className='font-normal text-base'>{formatDateTime(publishedAt)}</span></p>
             )}
           </div>
         </div>
       </div>
-      <div className="min-h-[80vh] select-none">
-        {heroImage && typeof heroImage !== 'string' && (
-          <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
-        )}
-        <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent" />
-      </div>
+      {heroImage && typeof heroImage !== 'string' && (
+        <Media priority imgClassName="object-contain" resource={heroImage} />
+      )}
     </div>
   )
 }

@@ -14,6 +14,8 @@ import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { queryAdjacentPosts, queryPostBySlug } from '@/_data'
+import { Link } from '@/i18n/routing'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -48,12 +50,17 @@ export default async function Post({ params: paramsPromise }: Args) {
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const url = '/posts/' + decodedSlug
-  const post = await queryPostBySlug({ slug: decodedSlug, locale})
+  const post = await queryPostBySlug({ slug: decodedSlug, locale })
 
   if (!post) return <PayloadRedirects url={url} />
 
+  const { prev, next } = await queryAdjacentPosts({
+    currentSlug: slug,
+    locale,
+  })
+
   return (
-    <article className="pt-16 overflow-hidden">
+    <article className="py-16 overflow-hidden">
       <PageClient />
 
       {/* Allows redirects for valid pages too */}
@@ -61,16 +68,35 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <PostHero post={post} />
-
-      <div className="flex flex-col items-center gap-4 pt-8">
-        <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
-          {post.relatedPosts && post.relatedPosts.length > 0 && (
-            <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
-              docs={post.relatedPosts.filter((post) => typeof post === 'object')}
-            />
+      <div className="container pt-6">
+        <PostHero post={post} />
+        <RichText className="max-w-[56rem] mx-auto pt-8 [&_p]:my-0" data={post.content} enableGutter={false} />
+        {post.relatedPosts && post.relatedPosts.length > 0 && (
+          <RelatedPosts
+            className="mt-12 max-w-[56rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
+            docs={post.relatedPosts.filter((post) => typeof post === 'object')}
+          />
+        )}
+        <div className="pt-4 mt-12 flex justify-between gap-3 md:gap-10 border-t border-[#00000014]">
+          {prev && prev?.title && typeof prev === 'object' ? (
+            <Link
+              href={`/blog/${prev.slug}`}
+              className='text-sm md:text-base font-bold text-primary'
+            >
+              {`<< ${prev.title}`}
+            </Link>
+          ) : (
+            <div />
+          )}
+          {next && next?.title && typeof next === 'object' ? (
+            <Link
+              href={`/blog/${next.slug}`}
+              className='text-sm md:text-base font-bold text-primary'
+            >
+              {`${next.title} >>`}
+            </Link>
+          ) : (
+            <div />
           )}
         </div>
       </div>
@@ -84,27 +110,5 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug, locale })
 
-  return generateMeta({ doc: post })
+  return generateMeta({ doc: post, basePath: 'blog'})
 }
-
-const queryPostBySlug = cache(async ({ slug, locale }: { slug: string; locale: TypedLocale }) => {
-  const { isEnabled: draft } = await draftMode()
-
-  const payload = await getPayload({ config: configPromise })
-
-  const result = await payload.find({
-    collection: 'posts',
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    pagination: false,
-    locale,
-    where: {
-      slug: {
-        equals: slug,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-})

@@ -158,7 +158,53 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    settings: {
+      /**
+       * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
+       */
+      bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
+      /**
+       * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+       */
+      bgGradient?: string | null;
+      /**
+       * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
+       */
+      bgLightColor?: string | null;
+      /**
+       * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
+       */
+      bgDarkColor?: string | null;
+      /**
+       * Upload an image to use as the section background. This image will only be displayed if "Type" is set to "Image".
+       */
+      bgImage?: (number | null) | Media;
+      /**
+       * Enable to repeat the background image. When checked, the image will tile to fill the area. Leave unchecked for a single image.
+       */
+      bgRepeat?: boolean | null;
+      /**
+       * How the image should scale. "Contain" fits within the area, "Cover" fills it, or set a custom value. Default is auto.
+       */
+      bgSize?: ('contain' | 'cover' | 'custom') | null;
+      /**
+       * Enter a value in pixels or percent (e.g., 70px, 50%)
+       */
+      bgSizeCustom?: string | null;
+      /**
+       * Choose one or more background positions. Default is center. Example: select "Right" and "Top" to position background at the top right.
+       */
+      bgPosition?: ('center' | 'right' | 'left' | 'top' | 'bottom')[] | null;
+      /**
+       * Specifies how the background image scrolls with the page. "Scroll" moves with the content (default), "Fixed" remains stationary.
+       */
+      bgAttachment?: ('scroll' | 'fixed') | null;
+      /**
+       * Sets the vertical padding (top and bottom) for the block. Enter values like "40px", "2rem", or "10%". Default is "32px". Leave blank to use the default.
+       */
+      padding?: string | null;
+      type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    };
     richText?: {
       root: {
         type: string;
@@ -199,75 +245,27 @@ export interface Page {
     };
     media?: (number | null) | Media;
   };
-  layout: (
-    | CallToActionBlock
-    | ContentBlock
-    | MediaBlock
-    | ArchiveBlock
-    | FormBlock
-    | FeatureBlock
-    | MediaContentBlock
-    | MapsBlock
-  )[];
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
+  layout?:
+    | (
+        | CallToActionBlock
+        | ContentBlock
+        | MediaBlock
+        | ArchiveBlock
+        | FormBlock
+        | FeatureBlock
+        | MediaContentBlock
+        | MapsBlock
+      )[]
     | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -371,11 +369,62 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedPosts?: (number | Post)[] | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
   id: number;
   title: string;
+  type?: ('blog' | 'service') | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -427,13 +476,17 @@ export interface CallToActionBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**
@@ -521,13 +574,17 @@ export interface ContentBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**
@@ -617,13 +674,17 @@ export interface MediaBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**
@@ -669,13 +730,17 @@ export interface ArchiveBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**
@@ -745,13 +810,17 @@ export interface FormBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**
@@ -992,13 +1061,17 @@ export interface FeatureBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**
@@ -1065,13 +1138,17 @@ export interface MediaContentBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**
@@ -1160,13 +1237,17 @@ export interface MapsBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**
@@ -1574,7 +1655,22 @@ export interface PagesSelect<T extends boolean = true> {
   hero?:
     | T
     | {
-        type?: T;
+        settings?:
+          | T
+          | {
+              bgType?: T;
+              bgGradient?: T;
+              bgLightColor?: T;
+              bgDarkColor?: T;
+              bgImage?: T;
+              bgRepeat?: T;
+              bgSize?: T;
+              bgSizeCustom?: T;
+              bgPosition?: T;
+              bgAttachment?: T;
+              padding?: T;
+              type?: T;
+            };
         richText?: T;
         link?:
           | T
@@ -1624,6 +1720,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
+        bgGradient?: T;
         bgLightColor?: T;
         bgDarkColor?: T;
         bgImage?: T;
@@ -1663,6 +1760,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
+        bgGradient?: T;
         bgLightColor?: T;
         bgDarkColor?: T;
         bgImage?: T;
@@ -1704,6 +1802,7 @@ export interface MediaBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
+        bgGradient?: T;
         bgLightColor?: T;
         bgDarkColor?: T;
         bgImage?: T;
@@ -1727,6 +1826,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
+        bgGradient?: T;
         bgLightColor?: T;
         bgDarkColor?: T;
         bgImage?: T;
@@ -1755,6 +1855,7 @@ export interface FormBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
+        bgGradient?: T;
         bgLightColor?: T;
         bgDarkColor?: T;
         bgImage?: T;
@@ -1780,6 +1881,7 @@ export interface FeatureBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
+        bgGradient?: T;
         bgLightColor?: T;
         bgDarkColor?: T;
         bgImage?: T;
@@ -1810,6 +1912,7 @@ export interface MediaContentBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
+        bgGradient?: T;
         bgLightColor?: T;
         bgDarkColor?: T;
         bgImage?: T;
@@ -1847,6 +1950,7 @@ export interface MapsBlockSelect<T extends boolean = true> {
     | T
     | {
         bgType?: T;
+        bgGradient?: T;
         bgLightColor?: T;
         bgDarkColor?: T;
         bgImage?: T;
@@ -2053,6 +2157,7 @@ export interface PortfoliosSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  type?: T;
   generateSlug?: T;
   slug?: T;
   parent?: T;
@@ -2543,13 +2648,17 @@ export interface BannerBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**
@@ -2610,13 +2719,17 @@ export interface CodeBlock {
     /**
      * Select "Image" to use a background image, or "Color" to choose a solid background color. If neither is chosen, the section background will default to transparent.
      */
-    bgType?: ('image' | 'color' | 'transparent') | null;
+    bgType?: ('image' | 'color' | 'gradient' | 'transparent') | null;
     /**
-     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Enter a CSS gradient value. Supports: "linear-gradient", "radial-gradient", "conic-gradient" (e.g., "linear-gradient(90deg, #fff, #000)". If left empty, section background defaults to transparent.
+     */
+    bgGradient?: string | null;
+    /**
+     * Custom CSS Light color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgLightColor?: string | null;
     /**
-     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to white if left empty.
+     * Custom CSS Dark color value (e.g., #ffffff, rgb(255,255,255), or color name). Defaults to transparent if left empty.
      */
     bgDarkColor?: string | null;
     /**

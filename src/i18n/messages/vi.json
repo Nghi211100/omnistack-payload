@@ -6,12 +6,19 @@
   "hide": "Ẩn",
   "loadMore": "Xem thêm",
   "posts": {
-    "author": "Tác Giả"
+    "author": "Tác Giả",
+    "publishedAt": "Ngày đăng",
+    "slogan": "Chia sẻ những câu chuyện phía sau công nghệ.",
+    "latest": "Mới nhất",
+    "updatedAt": "Ngày sửa"
   },
   "post": {
     "datePublished": "Ngày Đăng"
   },
   "previous": "Trước",
   "more_pages": "Thêm trang",
-  "next": "Kế tiếp"
+  "next": "Kế tiếp",
+  "page-not-found": "Không tìm thấy trang này.",
+  "go_home": "Về trang chủ",
+  "no_data": "Tìm kiếm không có kết quả"
 }
